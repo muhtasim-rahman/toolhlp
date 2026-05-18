@@ -1,0 +1,64 @@
+name: 🏷️ Create Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔖 Extract version from tag
+        id: version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
+
+      - name: 📦 Create release ZIP
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          ZIP_NAME="devtools-hub-v${VERSION}.zip"
+
+          # Package only deployable project files
+          zip -r "$ZIP_NAME" \
+            index.html \
+            README.md \
+            CHANGELOG.md \
+            assets/ \
+            --exclude "*.DS_Store"
+
+          echo "Created: $ZIP_NAME ($(du -sh $ZIP_NAME | cut -f1))"
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
+        id: zip
+
+      - name: 📝 Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          # Extract the section for this version from CHANGELOG.md
+          awk "/^## \[$VERSION\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md > release_notes.md
+          if [ ! -s release_notes.md ]; then
+            echo "See CHANGELOG.md for details." > release_notes.md
+          fi
+          echo "Release notes extracted."
+
+      - name: 🚀 Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "DevToolHub ${{ steps.version.outputs.tag }}"
+          body_path: release_notes.md
+          files: ${{ steps.zip.outputs.zip_name }}
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.tag, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
