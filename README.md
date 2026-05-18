@@ -1,17 +1,16 @@
-# DevToolHub — Developer Tools Collection
+# ToolHlp — Essential Developer Utilities
 
 <div align="center">
 
-![DevToolHub](https://img.shields.io/badge/DevToolHub-v1.0.0-00ADB5?style=for-the-badge&labelColor=222831)
-![License](https://img.shields.io/badge/License-MIT-393E46?style=for-the-badge&labelColor=222831)
-![Status](https://img.shields.io/badge/Status-Active-22c55e?style=for-the-badge&labelColor=222831)
-![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+-f59e0b?style=for-the-badge&labelColor=222831)
-![No Server](https://img.shields.io/badge/Server-Not_Required-00ADB5?style=for-the-badge&labelColor=222831)
+![ToolHlp](https://img.shields.io/badge/ToolHlp-v1.0.2-10b981?style=for-the-badge&labelColor=0f172a)
+![License](https://img.shields.io/badge/License-MIT-1e293b?style=for-the-badge&labelColor=0f172a)
+![Status](https://img.shields.io/badge/Status-Active-10b981?style=for-the-badge&labelColor=0f172a)
+![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+-f59e0b?style=for-the-badge&labelColor=0f172a)
 
-**A fast, browser-based SPA collecting everyday developer utilities in one place.**
-No installs. No sign-ups. No tracking. Everything runs client-side.
+**Fast, private, and local developer utilities in one beautiful place.**
+No installs. No sign-ups. No tracking. Everything runs 100% client-side.
 
-[🚀 Live Demo](#) · [🐛 Report Bug](https://github.com/muhtasim-rahman/git-commit/issues) · [💡 Request Feature](https://github.com/muhtasim-rahman/git-commit/issues)
+[🚀 Live Demo](#) · [📖 Read Docs](#docs) · [🐛 Report Bug](https://github.com/muhtasim-rahman/toolhlp/issues)
 
 </div>
 

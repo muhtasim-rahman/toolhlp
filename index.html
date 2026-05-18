@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DevToolHub — Developer Tools Collection</title>
+  <title id="site-title">ToolHlp — Developer Tools Collection</title>
   <meta name="description" content="A collection of powerful developer tools: Git commit generator, log visualizer, image tools, JSON formatter, regex tester and more." />
+  <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2310b981'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Syne' font-weight='800' font-size='60'>TH</text></svg>" />
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
@@ -16,8 +17,8 @@
 <nav id="navbar">
   <div class="nav-wrap">
     <a class="nav-logo" href="#home">
-      <div class="logo-sq">DT</div>
-      <span class="logo-name">Dev<span>Tool</span>Hub</span>
+      <div class="logo-sq">TH</div>
+      <span class="logo-name site-name">Tool<span>Hlp</span></span>
     </a>
 
     <ul class="nav-links">
@@ -43,8 +44,8 @@
           </div>
         </div>
       </li>
+      <li><a href="#docs" data-route="docs">Docs</a></li>
       <li><a href="#about" data-route="about">About</a></li>
-      <li><a href="#contact" data-route="contact">Contact</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -65,8 +66,8 @@
 <div id="sidebar">
   <div class="sb-head">
     <a class="nav-logo" href="#home">
-      <div class="logo-sq" style="width:28px;height:28px;font-size:12px">DT</div>
-      <span class="logo-name" style="font-size:14px">Dev<span>Tool</span>Hub</span>
+      <div class="logo-sq" style="width:28px;height:28px;font-size:12px">TH</div>
+      <span class="logo-name site-name" style="font-size:14px">Tool<span>Hlp</span></span>
     </a>
     <button class="sb-close" id="sbClose"><i class="fa-solid fa-xmark"></i></button>
   </div>
@@ -105,8 +106,8 @@
       </div>
     </div>
 
+    <a href="#docs" data-route="docs"><i class="fa-solid fa-book nav-ico"></i> Docs</a>
     <a href="#about" data-route="about"><i class="fa-solid fa-circle-info nav-ico"></i> About</a>
-    <a href="#contact" data-route="contact"><i class="fa-solid fa-envelope nav-ico"></i> Contact</a>
   </div>
   <div class="sb-foot">
     <button class="sb-theme-row" id="sbThemeBtn" style="width:100%">
@@ -127,18 +128,17 @@
       <div class="hero-glow"></div>
       <div class="container">
         <div class="hero-inner">
-          <div class="hero-tag"><i class="fa-solid fa-bolt"></i> v1.0.0 — Free & Open</div>
-          <h1 class="hero-h1">One hub for all your <em>dev tools</em></h1>
-          <p class="hero-lead">Git helpers, image utilities, JSON formatter, regex tester and more — all in one fast, browser-based SPA. No installs. No sign-ups.</p>
+          <div class="hero-tag"><i class="fa-solid fa-bolt"></i> v1.0.2 — Modern & Minimal</div>
+          <h1 class="hero-h1">Essential <em>Dev Tools</em> in one place.</h1>
+          <p class="hero-lead">Fast, local, and browser-based utilities to help you build better software. No sign-ups, no data leaves your machine.</p>
           <div class="hero-cta">
-            <button class="btn btn-primary btn-lg" onclick="navigate('tools')"><i class="fa-solid fa-grid-2"></i> Browse Tools</button>
-            <button class="btn btn-ghost btn-lg" onclick="navigate('commit-generator')"><i class="fa-solid fa-code-commit"></i> Try Commit Generator</button>
+            <button class="btn btn-primary btn-lg" onclick="navigate('tools')"><i class="fa-solid fa-grid-2"></i> Explore Tools</button>
+            <button class="btn btn-ghost btn-lg" onclick="navigate('docs')"><i class="fa-solid fa-book"></i> Read Docs</button>
           </div>
           <div class="hero-stats">
-            <div><div class="hs-num">7</div><div class="hs-lbl">Tools Available</div></div>
-            <div><div class="hs-num">3</div><div class="hs-lbl">Categories</div></div>
-            <div><div class="hs-num">0</div><div class="hs-lbl">Server Calls*</div></div>
-            <div><div class="hs-num">100%</div><div class="hs-lbl">Client-side</div></div>
+            <div><div class="hs-num">7</div><div class="hs-lbl">Total Tools</div></div>
+            <div><div class="hs-num">100%</div><div class="hs-lbl">Private</div></div>
+            <div><div class="hs-num">0s</div><div class="hs-lbl">Latency</div></div>
           </div>
         </div>
       </div>
@@ -214,39 +214,37 @@
     <div class="tools-page-header">
       <div class="container">
         <div class="sec-eyebrow">About</div>
-        <h1 class="sec-h2">About DevToolHub</h1>
+        <h1 class="sec-h2">About ToolHlp</h1>
       </div>
     </div>
     <div class="container">
       <div class="about-stats">
         <div class="astat"><div class="astat-num">7</div><div class="astat-lbl">Tools</div></div>
         <div class="astat"><div class="astat-num">3</div><div class="astat-lbl">Categories</div></div>
-        <div class="astat"><div class="astat-num">v1.0</div><div class="astat-lbl">Version</div></div>
+        <div class="astat"><div class="astat-num">v1.0.2</div><div class="astat-lbl">Version</div></div>
       </div>
       <div class="about-grid">
         <div class="about-text">
-          <h2>What is DevToolHub?</h2>
-          <p>DevToolHub is a free, browser-based collection of utilities built for developers. Everything runs client-side — no backend, no accounts, no tracking.</p>
-          <p>The project started as a Git commit helper and grew into a hub with tools for image processing, URL metadata extraction, JSON formatting and regex testing.</p>
-          <p>More tools will be added regularly. The stack is intentionally simple: vanilla HTML, CSS, and JavaScript — fast to load, easy to contribute to.</p>
+          <h2>What is ToolHlp?</h2>
+          <p>ToolHlp is a curated collection of utilities for developers, built with a focus on speed, privacy, and simplicity. No trackers, no cookies, and no data leaves your browser.</p>
+          <p>This project started as a simple git commit helper and evolved into a comprehensive hub for daily dev tasks. Every tool is built with vanilla web technologies to ensure a lightweight and zero-dependency experience.</p>
+          <p>Our mission is to provide the "essential toolbox" that every developer needs, accessible instantly from any device.</p>
           <h2 style="margin-top:24px">Tech Stack</h2>
           <div class="tech-list">
-            <span class="tech-pill">HTML5</span>
-            <span class="tech-pill">CSS3 (Custom Props)</span>
-            <span class="tech-pill">Vanilla JS</span>
+            <span class="tech-pill">Vanilla HTML5</span>
+            <span class="tech-pill">Modern CSS3</span>
+            <span class="tech-pill">ES6+ JavaScript</span>
             <span class="tech-pill">Font Awesome 6</span>
-            <span class="tech-pill">Google Fonts</span>
             <span class="tech-pill">JSZip</span>
-            <span class="tech-pill">Hash Router</span>
-            <span class="tech-pill">LocalStorage</span>
           </div>
         </div>
         <div class="team-card">
-          <div class="team-avatar">MR</div>
+          <div class="team-avatar">TH</div>
           <div class="team-name">Muhtasim Rahman</div>
-          <div class="team-role">Creator & Developer</div>
-          <p class="team-bio">Full-stack developer who builds tools to solve everyday dev annoyances. DevToolHub is a side project that collects those one-off utilities into a single, polished place.</p>
+          <div class="team-role">Lead Developer</div>
+          <p class="team-bio">Building tools that make developer lives easier. ToolHlp is a reflection of that philosophy—simple tools done right.</p>
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <a href="https://mdturzo.web.app" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-globe"></i> Portfolio</a>
             <a href="https://github.com/muhtasim-rahman" target="_blank" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i> GitHub</a>
           </div>
         </div>
@@ -884,7 +882,8 @@
               <div class="panel-title" style="font-size:11.5px"><i class="fa-solid fa-paste"></i> Input</div>
               <div class="json-stat">Keys: <span id="jKeyCount">—</span> | Size: <span id="jSize">—</span></div>
             </div>
-            <textarea class="json-textarea" id="jsonInput" placeholder='Paste your JSON here…&#10;&#10;{"name":"DevToolHub","version":"1.0.0"}'></textarea>
+            <textarea class="json-textarea" id="jsonInput" placeholder='Paste your JSON here…&#10;&#10;{"name":"ToolHlp","version":"1.0.2"}'></textarea>
+
           </div>
           <div>
             <div class="panel-head" style="margin-bottom:8px;padding:0">
@@ -983,6 +982,57 @@
     </div>
   </section>
 
+  <!-- ────────── DOCS ────────── -->
+  <section id="view-docs" class="view">
+    <div class="tools-page-header">
+      <div class="container">
+        <div class="sec-eyebrow">Documentation</div>
+        <h1 class="sec-h2">Getting Started</h1>
+      </div>
+    </div>
+    <div class="container" style="padding: 40px 0 80px">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>Overview</h2>
+          <p>ToolHlp is a developer-first toolset designed to be fast, reliable, and private. Every tool runs locally in your browser, meaning your data never touches a server.</p>
+          
+          <h2 style="margin-top:32px">Core Categories</h2>
+          <div class="guide-steps">
+            <div class="guide-step">
+              <div class="gs-num">G</div>
+              <div class="gs-text">
+                <h4>Git Tools</h4>
+                <p>Generate clean commit messages and visualize your git history without leaving the browser.</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div class="gs-num">I</div>
+              <div class="gs-text">
+                <h4>Image Tools</h4>
+                <p>Bulk rename files or strip sensitive EXIF data before sharing images online.</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div class="gs-num">D</div>
+              <div class="gs-text">
+                <h4>Developer Tools</h4>
+                <p>Format JSON, test Regex patterns, and extract metadata from URLs instantly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <h3>Quick Tips</h3>
+          <ul style="margin-top:16px; display:flex; flex-direction:column; gap:12px; font-size:13.5px; color:var(--text-muted)">
+            <li><i class="fa-solid fa-moon text-accent"></i> Use the theme toggle for late-night coding sessions.</li>
+            <li><i class="fa-solid fa-keyboard text-accent"></i> Most tools support standard keyboard shortcuts (Ctrl+C, Ctrl+V).</li>
+            <li><i class="fa-solid fa-shield-halved text-accent"></i> Privacy is built-in; no trackers, no cookies.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ══════════════════════════════════════
@@ -993,33 +1043,28 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="nav-logo" href="#home">
-          <div class="logo-sq">DT</div>
-          <span class="logo-name">Dev<span>Tool</span>Hub</span>
+          <div class="logo-sq">TH</div>
+          <span class="logo-name site-name">Tool<span>Hlp</span></span>
         </a>
-        <p>A collection of browser-based developer utilities. Free, fast, and privacy-first.</p>
+        <p>Your local companion for daily dev tasks. Privacy-first, open-source, and lightning fast.</p>
       </div>
       <div class="footer-col">
-        <h5>Git Tools</h5>
-        <a href="#commit-generator"><i class="fa-solid fa-code-commit"></i> Commit Generator</a>
-        <a href="#git-log-visualizer"><i class="fa-solid fa-diagram-project"></i> Log Visualizer</a>
+        <h5>Tools</h5>
+        <a href="#tools">All Tools</a>
+        <a href="#docs">Documentation</a>
+        <a href="#about">About Project</a>
       </div>
       <div class="footer-col">
-        <h5>Image Tools</h5>
-        <a href="#image-exif-remover"><i class="fa-solid fa-eraser"></i> EXIF Remover</a>
-        <a href="#image-batch-renamer"><i class="fa-solid fa-file-signature"></i> Batch Renamer</a>
-      </div>
-      <div class="footer-col">
-        <h5>Dev Tools</h5>
-        <a href="#url-metadata"><i class="fa-solid fa-link"></i> URL Metadata</a>
-        <a href="#json-formatter"><i class="fa-solid fa-brackets-curly"></i> JSON Formatter</a>
-        <a href="#regex-tester"><i class="fa-solid fa-magnifying-glass-chart"></i> Regex Tester</a>
+        <h5>Author</h5>
+        <a href="https://mdturzo.web.app" target="_blank"><i class="fa-solid fa-globe"></i> Portfolio</a>
+        <a href="https://github.com/muhtasim-rahman" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 DevToolHub · Built by <a href="https://github.com/muhtasim-rahman" target="_blank">Muhtasim Rahman</a></p>
+      <p>© 2026 <span class="site-name">ToolHlp</span> · Built with <i class="fa-solid fa-heart" style="color:var(--danger)"></i> by Muhtasim Rahman</p>
       <div style="display:flex;align-items:center;gap:10px">
-        <span class="ver-badge"><i class="fa-solid fa-tag"></i> v1.0.0</span>
-        <a href="https://github.com/muhtasim-rahman/git-commit" target="_blank" style="color:var(--text-faint);font-size:13px"><i class="fa-brands fa-github"></i> GitHub</a>
+        <span class="ver-badge version-label"><i class="fa-solid fa-tag"></i> v1.0.2</span>
+        <a href="https://github.com/muhtasim-rahman/toolhlp" target="_blank" style="color:var(--text-faint);font-size:13px"><i class="fa-brands fa-github"></i> Source</a>
       </div>
     </div>
   </div>
@@ -1030,6 +1075,7 @@
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="assets/js/config.js"></script>
 <script src="assets/js/tools/commit-generator.js"></script>
 <script src="assets/js/tools/git-log-visualizer.js"></script>
 <script src="assets/js/tools/image-exif-remover.js"></script>

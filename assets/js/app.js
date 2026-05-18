@@ -3,24 +3,66 @@ const TOOLS=[{id:'commit-generator',title:'Commit Generator',desc:'Generate mult
 const ROUTES={'':'view-home','home':'view-home','tools':'view-tools','about':'view-about','contact':'view-contact','commit-generator':'view-commit-generator','git-log-visualizer':'view-git-log-visualizer','image-exif-remover':'view-image-exif-remover','image-batch-renamer':'view-image-batch-renamer','url-metadata':'view-url-metadata','json-formatter':'view-json-formatter','regex-tester':'view-regex-tester'};
 let currentRoute='';
 
+function initBranding(){
+  if(!window.CONFIG) return;
+  const name = CONFIG.appName; // e.g. "ToolHlp"
+  // Let's assume we want to highlight the last 3 chars or split it
+  const p1 = name.substring(0, name.length - 3);
+  const p2 = name.substring(name.length - 3);
+  document.querySelectorAll('.site-name').forEach(el=>el.innerHTML=`${p1}<span>${p2}</span>`);
+  document.querySelectorAll('.version-label').forEach(el=>el.innerHTML=`<i class="fa-solid fa-tag"></i> v${CONFIG.version}`);
+  document.title=`${CONFIG.appName} — Developer Tools Collection`;
+}
+
 function navigate(route,push=true){
   if(route===currentRoute&&document.getElementById(ROUTES[route]||'view-home')?.classList.contains('active'))return;
-  currentRoute=route;
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const viewId=ROUTES[route]||'view-home';
-  const target=document.getElementById(viewId);
-  if(target)target.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-  if(push)history.pushState({route},'',route?`#${route}`:'#');
-  document.querySelectorAll('[data-route]').forEach(el=>{
-    el.classList.remove('active');
-    if(el.dataset.route===route||(route===''&&el.dataset.route==='home'))el.classList.add('active');
-  });
-  const tool=TOOLS.find(t=>t.route===route);
-  document.title=tool?`${tool.title} — DevToolHub`:route==='tools'?'All Tools — DevToolHub':route==='about'?'About — DevToolHub':route==='contact'?'Contact — DevToolHub':'DevToolHub — Developer Tools';
-  closeSidebar();
+  
+  // Fade out current view
+  const currentView = document.querySelector('.view.active');
+  if(currentView) {
+    currentView.style.opacity = '0';
+    currentView.style.transform = 'translateY(10px)';
+  }
+
+  setTimeout(() => {
+    currentRoute=route;
+    document.querySelectorAll('.view').forEach(v=>{
+      v.classList.remove('active');
+      v.style.opacity = '';
+      v.style.transform = '';
+    });
+    
+    const viewId=ROUTES[route]||'view-home';
+    const target=document.getElementById(viewId);
+    if(target) {
+      target.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    
+    if(push)history.pushState({route},'',route?`#${route}`:'#');
+    document.querySelectorAll('[data-route]').forEach(el=>{
+      el.classList.remove('active');
+      if(el.dataset.route===route||(route===''&&el.dataset.route==='home'))el.classList.add('active');
+    });
+    
+    const tool=TOOLS.find(t=>t.route===route);
+    const appName = window.CONFIG ? CONFIG.appName : 'ToolHlp';
+    document.title=tool?`${tool.title} — ${appName}`:route==='tools'?`All Tools — ${appName}`:route==='docs'?`Docs — ${appName}`:route==='about'?`About — ${appName}`:`${appName} — Developer Tools`;
+    closeSidebar();
+  }, currentView ? 150 : 0);
 }
-function handleHash(){const h=location.hash.replace('#','').trim();navigate(h,false);}
+function handleHash(){
+  const h=location.hash.replace('#','').trim();
+  if(ROUTES[h]){
+    navigate(h,false);
+  } else if(!h || h==='/'){
+    navigate('home',false);
+  } else {
+    // Fallback for invalid routes
+    navigate('home',false);
+    history.replaceState(null,'','#');
+  }
+}
 window.addEventListener('popstate',handleHash);
 
 // Theme
@@ -73,11 +115,12 @@ function submitContact(){
   const name=document.getElementById('cfName').value.trim(),email=document.getElementById('cfEmail').value.trim(),msg=document.getElementById('cfMsg').value.trim();
   if(!name||!msg){showToast('Please fill name and message.','err');return;}
   const b=encodeURIComponent(`**From:** ${name}\n**Email:** ${email}\n\n${msg}`),ti=encodeURIComponent(`[Contact] Message from ${name}`);
-  window.open(`https://github.com/muhtasim-rahman/git-commit/issues/new?title=${ti}&body=${b}`,'_blank');
+  window.open(`${CONFIG.repoUrl}/issues/new?title=${ti}&body=${b}`,'_blank');
 }
 
 // Init
 document.addEventListener('DOMContentLoaded',()=>{
+  initBranding();
   applyTheme(localStorage.getItem(THEME_KEY)||'dark');
   document.getElementById('themeBtn').addEventListener('click',toggleTheme);
   document.getElementById('sbThemeBtn').addEventListener('click',toggleTheme);
@@ -104,6 +147,20 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(typeof initCommitGenerator==='function')initCommitGenerator();
   if(typeof initGitLogVisualizer==='function')initGitLogVisualizer();
   if(typeof initExifRemover==='function')initExifRemover();
+  if(typeof initBatchRenamer==='function')initBatchRenamer();
+  if(typeof initUrlMetadata==='function')initUrlMetadata();
+  if(typeof initJsonFormatter==='function')initJsonFormatter();
+  if(typeof initRegexTester==='function')initRegexTester();
+});
+ommitGenerator();
+  if(typeof initGitLogVisualizer==='function')initGitLogVisualizer();
+  if(typeof initExifRemover==='function')initExifRemover();
+  if(typeof initBatchRenamer==='function')initBatchRenamer();
+  if(typeof initUrlMetadata==='function')initUrlMetadata();
+  if(typeof initJsonFormatter==='function')initJsonFormatter();
+  if(typeof initRegexTester==='function')initRegexTester();
+});
+initExifRemover();
   if(typeof initBatchRenamer==='function')initBatchRenamer();
   if(typeof initUrlMetadata==='function')initUrlMetadata();
   if(typeof initJsonFormatter==='function')initJsonFormatter();

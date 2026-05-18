@@ -28,23 +28,18 @@ build/
 *.log
 npm-debug.log*
 
-# ── Dependencies (future) ──────────────
+# ── Dependencies ───────────────────────
 node_modules/
 .npm/
 
-# ── Environment (future) ───────────────
+# ── Environment ────────────────────────
 .env
 .env.local
 .env.*.local
 
-# ── Development ────────────────────────
-.Backups
-.files-for-ai
-
+# ── Development (Hidden/AI/Backups) ────
+.Backups/
+.files-for-ai/
 
 # ── GitHub Pages deploy artifact ───────
-# (The _deploy folder is used by workflow, not committed)
 _deploy/
-
-# NOTE: .Backups/ and .files-for-ai/ ARE committed to the repo intentionally.
-# They are excluded from the GitHub Pages deploy via the workflow, not .gitignore.

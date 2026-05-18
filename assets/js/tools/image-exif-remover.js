@@ -1,5 +1,5 @@
 /* =========================================================
-   DevToolHub — image-exif-remover.js
+   ToolHlp — image-exif-remover.js
    ========================================================= */
 'use strict';
 

@@ -1,14 +1,14 @@
 /* =========================================================
-   DevToolHub — json-formatter.js
+   ToolHlp — json-formatter.js
    ========================================================= */
 'use strict';
 
 const JSON_SAMPLE = `{
-  "project": "DevToolHub",
-  "version": "1.0.0",
+  "project": "ToolHlp",
+  "version": "1.0.2",
   "author": {
     "name": "Muhtasim Rahman",
-    "github": "muhtasim-rahman",
+    "portfolio": "https://mdturzo.web.app",
     "role": "Creator & Developer"
   },
   "tools": [
@@ -21,10 +21,9 @@ const JSON_SAMPLE = `{
     "Regex Tester"
   ],
   "settings": {
-    "theme": "dark",
-    "storage": "localStorage",
-    "openSource": true,
-    "serverRequired": false
+    "theme": "emerald-green",
+    "privacy": "100% Client-side",
+    "openSource": true
   }
 }`;
 
