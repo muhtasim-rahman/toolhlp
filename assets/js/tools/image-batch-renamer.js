@@ -1,5 +1,5 @@
 /* =========================================================
-   ToolHlp — image-batch-renamer.js
+   DevToolHub — image-batch-renamer.js
    ========================================================= */
 'use strict';
 

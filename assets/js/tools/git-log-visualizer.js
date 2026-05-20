@@ -1,5 +1,5 @@
 /* =========================================================
-   ToolHlp — git-log-visualizer.js
+   DevToolHub — git-log-visualizer.js
    ========================================================= */
 'use strict';
 
