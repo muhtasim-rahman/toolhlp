@@ -1,5 +1,5 @@
 /* =========================================================
-   ToolHlp — url-metadata.js
+   DevToolHub — url-metadata.js
    Multi-engine URL metadata extractor
    ========================================================= */
 'use strict';

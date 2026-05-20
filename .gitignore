@@ -1,45 +1,30 @@
-# ── OS files ──────────────────────────
+# OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# ── Editor / IDE ───────────────────────
+# Editor
 .vscode/
 .idea/
 *.swp
-*.swo
 *~
-.project
-.settings/
 
-# ── Build artifacts ────────────────────
+# Build / dist
 *.zip
 *.tar.gz
 _deploy/
 dist/
 build/
-
-# ── Logs ───────────────────────────────
-*.log
-npm-debug.log*
-
-# ── Dependencies ───────────────────────
 node_modules/
-.npm/
 
-# ── Environment ────────────────────────
+# Logs
+*.log
+
+# Env
 .env
-.env.local
-.env.*.local
+.env.*
 
-# ── Development (Hidden/AI/Backups) ────
-.Backups/
-.files-for-ai/
-
-# ── GitHub Pages deploy artifact ───────
-_deploy/
+# AI & Backup folders — committed to repo but NOT deployed via GitHub Actions
+# (Excluded in .github/workflows/deploy.yml via the _deploy copy step)
+# These are intentionally kept in the repo for version history and AI continuity.
+# DO NOT add .Backups/ or .files-for-ai/ here — they must stay in version control.
