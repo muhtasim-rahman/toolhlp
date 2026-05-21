@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#10b981" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background square with rounded corners -->
+  <rect width="120" height="120" rx="26" fill="url(#bg)" filter="url(#shadow)"/>
+
+  <!-- Shine overlay -->
+  <rect width="120" height="60" rx="26" fill="url(#shine)" opacity="0.5"/>
+  <rect y="40" width="120" height="20" fill="url(#shine)" opacity="0.15"/>
+
+  <!-- Subtle grid dots pattern -->
+  <circle cx="24" cy="24" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="40" cy="24" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="24" cy="40" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="96" cy="24" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="80" cy="24" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="96" cy="40" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="24" cy="96" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="24" cy="80" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="96" cy="96" r="1.5" fill="white" opacity="0.12"/>
+  <circle cx="96" cy="80" r="1.5" fill="white" opacity="0.12"/>
+
+  <!-- Wrench icon — representing a tool/utility -->
+  <!-- Main wrench body -->
+  <g transform="translate(60,60)" filter="url(#inner)">
+    <!-- Wrench handle -->
+    <rect x="-5" y="-4" width="10" height="36" rx="5" fill="white" opacity="0.95"
+          transform="rotate(-45)"/>
+    <!-- Wrench head ring (top) -->
+    <circle cx="-17" cy="-17" r="12" stroke="white" stroke-width="7" fill="none" opacity="0.95"/>
+    <!-- Wrench head inner cutout to make it look open -->
+    <circle cx="-17" cy="-17" r="5.5" fill="url(#bg)" opacity="1"/>
+    <!-- Small accent circle at wrench bottom tip -->
+    <circle cx="17" cy="17" r="5" fill="white" opacity="0.7"/>
+  </g>
+
+  <!-- Small terminal prompt indicator — bottom right -->
+  <rect x="70" y="74" width="28" height="18" rx="5" fill="rgba(0,0,0,0.22)"/>
+  <text x="76" y="86" font-family="monospace" font-weight="700" font-size="10" fill="rgba(255,255,255,0.85)">_&gt;</text>
+</svg>

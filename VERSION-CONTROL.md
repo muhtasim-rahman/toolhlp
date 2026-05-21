@@ -1,210 +1,132 @@
-# Version Control Guide — DevToolHub
+# ToolHlp — Version Control Guide
 
-This file documents the full branching, tagging, and release workflow for DevToolHub.
+This document explains the branching strategy, tagging convention, and release workflow used for ToolHlp.
 
 ---
 
-## 🌿 Branch Structure
+## Branching Strategy
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Always-deployable, live code. GitHub Pages deploys from here. |
+| `v{X}.{Y}.{Z}` | Per-version backup branch. Created before merging to main. |
+
+**There is no `develop` or `staging` branch.** Work happens directly against the version branch, then merges to main.
+
+---
+
+## Versioning (SemVer)
+
+`vMAJOR.MINOR.PATCH`
+
+| Segment | When to bump |
+|---------|-------------|
+| **MAJOR** | Complete redesign, breaking change in routing, or full framework change |
+| **MINOR** | New tool added |
+| **PATCH** | Bug fix, style tweak, copy change, docs update |
+
+---
+
+## Full Release Workflow
+
+Run this complete CMD block after finishing work for a version:
+
+```cmd
+git checkout -b v{X}.{Y}.{Z} && ^
+git add . && ^
+git commit -m "v{X}.{Y}.{Z} - {Short Title}" ^
+         -m "- {Change 1}" ^
+         -m "- {Change 2}" ^
+         -m "- {Change 3}" ^
+         -m "- {Change 4}" ^
+         -m "- {Change 5}" ^
+         -m "- {Change 6}" ^
+         -m "- {Change 7}" ^
+         -m "- {Change 8}" ^
+         -m "- {Change 9}" ^
+         -m "- {Change 10}" ^
+         -m "- {Change 11}" ^
+         -m "- {Change 12}" && ^
+git push origin v{X}.{Y}.{Z} && ^
+git checkout main && ^
+git merge v{X}.{Y}.{Z} && ^
+git tag -a v{X}.{Y}.{Z} -m "Release v{X}.{Y}.{Z}" && ^
+git push origin main --tags
+```
+
+### What each step does
+
+| Step | Command | Purpose |
+|------|---------|---------|
+| 1 | `git checkout -b v{X}.{Y}.{Z}` | Creates version branch (backup point) |
+| 2 | `git add . && git commit ...` | Stages + commits all changes with structured message |
+| 3 | `git push origin v{X}.{Y}.{Z}` | Pushes version branch → acts as backup on GitHub |
+| 4 | `git checkout main` | Switches back to main |
+| 5 | `git merge v{X}.{Y}.{Z}` | Fast-forward merges version into main |
+| 6 | `git tag -a v{X}.{Y}.{Z} -m "..."` | Creates annotated tag for GitHub Release |
+| 7 | `git push origin main --tags` | Pushes main → triggers GitHub Pages deploy + release workflow |
+
+---
+
+## Commit Message Format
 
 ```
-main                 ← Production. Protected. Auto-deploys to GitHub Pages.
-│
-├── develop          ← Integration. All features merge here first.
-│   │
-│   ├── feature/json-formatter-tree-view    ← One branch per feature/tool
-│   ├── feature/base64-encoder-new-tool
-│   └── feature/fix-regex-zero-width
-│
-├── release/v1.1.0   ← Release prep: bump version, update changelog, final test
-│
-└── hotfix/v1.0.1    ← Emergency fix: branches from main, merges to main+develop
+v{X}.{Y}.{Z} - {Short Title (~60 chars max)}
+- {Change 1 — imperative, one meaningful change per line}
+- {Change 2}
+...
+- {Change 12}  ← minimum 8 lines, maximum 15 lines
 ```
 
----
-
-## 🔢 Versioning — SemVer
-
-Format: `vMAJOR.MINOR.PATCH`
-
-| Part | Increment when… | Examples |
-|---|---|---|
-| `PATCH` | Bug fix, typo, minor style fix | `v1.0.1`, `v1.0.2` |
-| `MINOR` | New tool added, new significant feature | `v1.1.0`, `v1.2.0` |
-| `MAJOR` | Framework migration (React), full redesign | `v2.0.0` |
+**Rules:**
+- Title uses `v{X}.{Y}.{Z} - ` prefix (not `feat:` or `fix:`)
+- Each `-m` line covers exactly one change
+- Imperative voice: "Add X", "Fix Y", "Redesign Z", "Remove A"
+- No vague lines like "misc fixes" or "updates"
+- CMD uses `^` for line continuation; Bash/zsh uses `\`
 
 ---
 
-## 🚀 Workflow: Adding a New Tool (MINOR release)
+## What Triggers What
 
-```bash
-# 1. Start from develop
-git checkout develop
-git pull origin develop
+| Action | Result |
+|--------|--------|
+| `git push origin main` | GitHub Actions → deploys to GitHub Pages |
+| `git push origin --tags` (with `v*.*.*` tag) | GitHub Actions → creates GitHub Release + ZIP artifact |
+| `git push origin v{X}.{Y}.{Z}` (branch) | Just pushes backup — no automation |
 
-# 2. Create feature branch
-git checkout -b feature/base64-encoder
+---
 
-# 3. Build the tool (code, HTML view, nav links, etc.)
-# ... do your work ...
+## GitHub Actions Workflows
 
-# 4. Commit with conventional message
-git add .
-git commit -m "feat(base64-encoder): add base64 encode/decode tool"
+| File | Trigger | Job |
+|------|---------|-----|
+| `.github/workflows/deploy.yml` | Push to `main` | Deploy `index.html`, `logo.svg`, `assets/` to GitHub Pages |
+| `.github/workflows/release.yml` | Push a `v*.*.*` tag | Create GitHub Release with `toolhlp-v{X}.{Y}.{Z}.zip` |
 
-# 5. Push and open PR → develop
-git push origin feature/base64-encoder
-# Open PR on GitHub: feature/base64-encoder → develop
+---
 
-# 6. After PR merged to develop, create release branch
-git checkout develop && git pull origin develop
-git checkout -b release/v1.1.0
+## Things to Update for Each Release
 
-# 7. On release branch: bump version strings, update CHANGELOG
-#    - Update version badge in README.md
-#    - Add v1.1.0 section to CHANGELOG.md
-#    - Update .files-for-ai/context.md
-#    - Create .Backups/v1.1.0/ snapshot
+Before running the release command, always update:
 
-git add .
-git commit -m "release: bump version to v1.1.0"
+1. **`assets/js/config.js`** — `version` and `releaseDate` fields
+2. **`CHANGELOG.md`** — New version section with date and changes
+3. **`.files-for-ai/context.md`** — New version entry with full context
+4. **`README.md`** — Badge versions (if shown)
+5. **`docs page`** (`#view-docs`) — Add version to changelog section in `index.html`
 
-# 8. Merge release branch into main
+---
+
+## Recovering from a Version Branch
+
+If something goes wrong on main, you can reset to any version branch:
+
+```cmd
 git checkout main
-git merge --no-ff release/v1.1.0 -m "chore(release): merge v1.1.0 into main"
-
-# 9. Tag the release
-git tag -a v1.1.0 -m "Release v1.1.0 — add base64 encoder tool"
-
-# 10. Push main + tag (triggers GitHub Actions deploy + release)
-git push origin main
-git push origin v1.1.0
-
-# 11. Merge release back into develop (to keep in sync)
-git checkout develop
-git merge --no-ff release/v1.1.0 -m "chore: sync release/v1.1.0 back to develop"
-git push origin develop
-
-# 12. Delete release branch (optional cleanup)
-git branch -d release/v1.1.0
-git push origin --delete release/v1.1.0
+git reset --hard v{X}.{Y}.{Z}
+git push origin main --force
 ```
 
----
+⚠️ This force-pushes. Only do this if you're sure.
 
-## 🚑 Workflow: Hotfix (PATCH release)
-
-```bash
-# Branch from main directly
-git checkout main && git pull origin main
-git checkout -b hotfix/v1.0.1
-
-# Fix the bug
-# ... fix ...
-git add .
-git commit -m "fix(regex-tester): prevent infinite loop on zero-width matches"
-
-# Update CHANGELOG.md, context.md
-git add .
-git commit -m "release: bump version to v1.0.1"
-
-# Merge into main
-git checkout main
-git merge --no-ff hotfix/v1.0.1 -m "chore(release): merge hotfix v1.0.1 into main"
-git tag -a v1.0.1 -m "Hotfix v1.0.1 — fix regex infinite loop"
-git push origin main
-git push origin v1.0.1
-
-# Merge into develop too
-git checkout develop
-git merge --no-ff hotfix/v1.0.1
-git push origin develop
-
-# Clean up
-git branch -d hotfix/v1.0.1
-```
-
----
-
-## 📸 .Backups Snapshot Protocol
-
-After every version release, before pushing the tag:
-
-```bash
-# Create the backup folder
-mkdir -p .Backups/v1.1.0/assets/css
-mkdir -p .Backups/v1.1.0/assets/js/tools
-
-# Copy all project files
-cp index.html          .Backups/v1.1.0/
-cp README.md           .Backups/v1.1.0/
-cp CHANGELOG.md        .Backups/v1.1.0/
-cp assets/css/main.css .Backups/v1.1.0/assets/css/
-cp assets/js/app.js    .Backups/v1.1.0/assets/js/
-cp assets/js/tools/*.js .Backups/v1.1.0/assets/js/tools/
-# Copy any other new files added in this version
-
-# Commit the snapshot
-git add .Backups/v1.1.0/
-git commit -m "chore(backup): snapshot v1.1.0"
-```
-
-**What to include in the backup:**
-- `index.html`
-- `README.md`, `CHANGELOG.md`
-- `assets/css/main.css`
-- `assets/js/app.js`
-- `assets/js/tools/*.js`
-- Any new files added in this version
-
-**What NOT to include:**
-- `.Backups/` itself (no recursion)
-- `.files-for-ai/`
-- `.github/`
-- `*.zip` files
-- `node_modules/`
-
----
-
-## 🏷️ Tag Naming Convention
-
-```bash
-git tag -a v1.0.0 -m "Release v1.0.0 — initial release"
-git tag -a v1.0.1 -m "Hotfix v1.0.1 — <one-line description>"
-git tag -a v1.1.0 -m "Release v1.1.0 — add <tool name>"
-git tag -a v2.0.0 -m "Release v2.0.0 — migrate to React"
-```
-
-Pre-release (beta):
-```bash
-git tag -a v1.1.0-beta.1 -m "Beta v1.1.0-beta.1"
-```
-
----
-
-## 🤖 GitHub Actions (automatic)
-
-| Trigger | Workflow | What happens |
-|---|---|---|
-| Push to `main` | `deploy.yml` | Builds `_deploy/` folder, deploys to GitHub Pages |
-| Push tag `v*.*.*` | `release.yml` | Creates GitHub Release, attaches ZIP of project files |
-
-No manual steps needed for deployment — just push to `main` or push a tag.
-
----
-
-## 📋 Release Checklist
-
-Before tagging a release, verify:
-
-- [ ] All features/fixes merged to `develop` via PRs
-- [ ] `develop` merged to release branch
-- [ ] Version number updated in `README.md` badge
-- [ ] `CHANGELOG.md` has the new version section
-- [ ] `.files-for-ai/context.md` updated with version context
-- [ ] `.Backups/v{X}.{Y}.{Z}/` snapshot committed
-- [ ] Tested in Chrome + Firefox + mobile viewport
-- [ ] Dark mode and light mode verified
-- [ ] No console errors on any tool
-- [ ] Release branch merged to `main`
-- [ ] Tag created and pushed: `git push origin v{X}.{Y}.{Z}`
-- [ ] Release branch merged back to `develop`

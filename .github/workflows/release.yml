@@ -25,13 +25,14 @@ jobs:
           echo "version=${TAG#v}" >> $GITHUB_OUTPUT
 
       - name: 📦 Create release ZIP
+        id: zip
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          ZIP_NAME="devtools-hub-v${VERSION}.zip"
+          ZIP_NAME="toolhlp-v${VERSION}.zip"
 
-          # Package only deployable project files
           zip -r "$ZIP_NAME" \
             index.html \
+            logo.svg \
             README.md \
             CHANGELOG.md \
             assets/ \
@@ -39,23 +40,20 @@ jobs:
 
           echo "Created: $ZIP_NAME ($(du -sh $ZIP_NAME | cut -f1))"
           echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
-        id: zip
 
       - name: 📝 Extract changelog for this version
         id: changelog
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          # Extract the section for this version from CHANGELOG.md
           awk "/^## \[$VERSION\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md > release_notes.md
           if [ ! -s release_notes.md ]; then
-            echo "See CHANGELOG.md for details." > release_notes.md
+            echo "See CHANGELOG.md for full details." > release_notes.md
           fi
-          echo "Release notes extracted."
 
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "DevToolHub ${{ steps.version.outputs.tag }}"
+          name: "ToolHlp ${{ steps.version.outputs.tag }}"
           body_path: release_notes.md
           files: ${{ steps.zip.outputs.zip_name }}
           draft: false

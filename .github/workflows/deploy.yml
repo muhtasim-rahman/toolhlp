@@ -32,6 +32,7 @@ jobs:
           mkdir -p _deploy
           cp index.html _deploy/
           cp README.md  _deploy/
+          cp logo.svg _deploy/
           cp -r assets  _deploy/
           echo "Deploy folder contents:"
           find _deploy -type f | sort

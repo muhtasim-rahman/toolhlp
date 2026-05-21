@@ -1,883 +1,1234 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Tool Hlp — Developer Tools</title>
-<meta name="description" content="A fast, browser-based collection of developer utilities. No installs, no tracking."/>
-<meta property="og:title" content="Tool Hlp — Developer Tools"/>
-<meta property="og:description" content="Git tools, image utilities, JSON formatter, regex tester and more."/>
-<meta property="og:type" content="website"/>
-<link rel="stylesheet" href="assets/css/main.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToolHlp — Developer Tools Collection</title>
+  <meta name="description" content="A curated collection of browser-based developer tools: Git commit generator, log visualizer, image tools, JSON formatter, regex tester and more. 100% local, no sign-up." />
+  <meta name="theme-color" content="#10b981" />
+  <link rel="icon" id="favicon" href="logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
 </head>
 <body>
 
-<!-- ═══════════ NAVBAR ═══════════ -->
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
 <nav id="navbar">
-  <div class="nav-inner">
-    <a class="nav-brand" data-path="/" href="#/">
-      <div class="brand-logo"><img src="assets/images/logo.svg" alt="Tool Hlp"/></div>
-      <span class="brand-name">Tool Hlp</span>
-      <span class="brand-ver">v1.0.3</span>
+  <div class="nav-wrap">
+    <a class="nav-logo" href="#home">
+      <div class="logo-sq"><img src="logo.svg" alt="ToolHlp logo" /></div>
+      <span class="logo-name site-name">Tool<span>Hlp</span></span>
     </a>
 
     <ul class="nav-links">
-      <li><a data-path="/" href="#/">Home</a></li>
-
-      <li class="mega-wrap">
-        <button class="nav-a" data-path="/tools">
-          Tools <i class="fa-solid fa-chevron-down chev"></i>
-        </button>
-        <div class="mega-menu">
+      <li><a href="#home" data-route="home"><i class="fa-solid fa-house nav-ico"></i> Home</a></li>
+      <li class="has-mega">
+        <a href="#tools" data-route="tools">Tools <i class="fa-solid fa-chevron-down chev"></i></a>
+        <div class="mega">
           <div class="mega-col">
-            <h4>Git</h4>
-            <a data-path="/tools/commit-generator"   href="#/tools/commit-generator"><i class="fa-solid fa-code-commit"></i>Commit Generator</a>
-            <a data-path="/tools/git-log-visualizer" href="#/tools/git-log-visualizer"><i class="fa-solid fa-diagram-project"></i>Log Visualizer</a>
+            <h4>Git Tools</h4>
+            <a href="#commit-generator" data-route="commit-generator"><i class="fa-solid fa-code-commit"></i> Commit Generator</a>
+            <a href="#git-log-visualizer" data-route="git-log-visualizer"><i class="fa-solid fa-diagram-project"></i> Log Visualizer</a>
           </div>
           <div class="mega-col">
-            <h4>Image</h4>
-            <a data-path="/tools/image-exif-remover"  href="#/tools/image-exif-remover"><i class="fa-solid fa-eraser"></i>EXIF Remover</a>
-            <a data-path="/tools/image-batch-renamer" href="#/tools/image-batch-renamer"><i class="fa-solid fa-file-signature"></i>Batch Renamer</a>
+            <h4>Image Tools</h4>
+            <a href="#image-exif-remover" data-route="image-exif-remover"><i class="fa-solid fa-eraser"></i> EXIF Remover</a>
+            <a href="#image-batch-renamer" data-route="image-batch-renamer"><i class="fa-solid fa-file-signature"></i> Batch Renamer</a>
           </div>
           <div class="mega-col">
-            <h4>Dev</h4>
-            <a data-path="/tools/url-metadata"    href="#/tools/url-metadata"><i class="fa-solid fa-link"></i>URL Metadata</a>
-            <a data-path="/tools/json-formatter"  href="#/tools/json-formatter"><i class="fa-solid fa-code"></i>JSON Formatter</a>
-            <a data-path="/tools/regex-tester"    href="#/tools/regex-tester"><i class="fa-solid fa-magnifying-glass-plus"></i>Regex Tester</a>
+            <h4>Dev Tools</h4>
+            <a href="#url-metadata" data-route="url-metadata"><i class="fa-solid fa-link"></i> URL Metadata</a>
+            <a href="#json-formatter" data-route="json-formatter"><i class="fa-solid fa-code"></i> JSON Formatter</a>
+            <a href="#regex-tester" data-route="regex-tester"><i class="fa-solid fa-magnifying-glass-chart"></i> Regex Tester</a>
           </div>
         </div>
       </li>
-
-      <li><a data-path="/docs"    href="#/docs">Docs</a></li>
-      <li><a data-path="/about"   href="#/about">About</a></li>
-      <li><a data-path="/contact" href="#/contact">Contact</a></li>
+      <li><a href="#docs" data-route="docs"><i class="fa-solid fa-book nav-ico"></i> Docs</a></li>
+      <li><a href="#about" data-route="about"><i class="fa-solid fa-circle-info nav-ico"></i> About</a></li>
     </ul>
 
-    <div class="nav-acts">
-      <button class="btn-icon-nav" id="themeBtn" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    <div class="nav-actions">
+      <button class="btn-theme" id="themeBtn" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
       <button class="btn-ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════ SIDEBAR ═══════════ -->
+<!-- SIDEBAR (mobile) -->
 <div class="sb-overlay" id="sbOverlay"></div>
 <div id="sidebar">
   <div class="sb-head">
-    <a class="nav-brand" data-path="/" href="#/">
-      <div class="brand-logo"><img src="assets/images/logo.svg" alt="Tool Hlp"/></div>
-      <span class="brand-name" style="font-size:14px">Tool Hlp</span>
+    <a class="nav-logo" href="#home">
+      <div class="logo-sq" style="width:30px;height:30px"><img src="logo.svg" alt="" /></div>
+      <span class="logo-name site-name" style="font-size:15px">Tool<span>Hlp</span></span>
     </a>
     <button class="sb-close" id="sbClose"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="sb-nav">
-    <a data-path="/"       href="#/"><i class="fa-solid fa-house si"></i> Home</a>
-    <a data-path="/tools"  href="#/tools"><i class="fa-solid fa-table-cells si"></i> All Tools</a>
+  <div class="sb-body">
+    <a href="#home"  data-route="home"><i class="fa-solid fa-house nav-ico"></i> Home</a>
+    <a href="#tools" data-route="tools"><i class="fa-solid fa-grid-2 nav-ico"></i> All Tools</a>
+    <a href="#docs"  data-route="docs"><i class="fa-solid fa-book nav-ico"></i> Docs</a>
+    <a href="#about" data-route="about"><i class="fa-solid fa-circle-info nav-ico"></i> About</a>
 
     <div class="sb-cat">
-      <button class="sb-cat-hd" data-cat="git">Git Tools <i class="fa-solid fa-chevron-down"></i></button>
-      <div class="sb-cat-links" id="sbc-git">
-        <a data-path="/tools/commit-generator"   href="#/tools/commit-generator"><i class="fa-solid fa-code-commit"></i> Commit Generator</a>
-        <a data-path="/tools/git-log-visualizer" href="#/tools/git-log-visualizer"><i class="fa-solid fa-diagram-project"></i> Log Visualizer</a>
+      <button class="sb-cat-toggle" data-cat="git">Git Tools <i class="fa-solid fa-chevron-down"></i></button>
+      <div class="sb-cat-links" id="cat-git">
+        <a href="#commit-generator"   data-route="commit-generator"><i class="fa-solid fa-code-commit"></i> Commit Generator</a>
+        <a href="#git-log-visualizer" data-route="git-log-visualizer"><i class="fa-solid fa-diagram-project"></i> Log Visualizer</a>
       </div>
     </div>
     <div class="sb-cat">
-      <button class="sb-cat-hd" data-cat="img">Image Tools <i class="fa-solid fa-chevron-down"></i></button>
-      <div class="sb-cat-links" id="sbc-img">
-        <a data-path="/tools/image-exif-remover"  href="#/tools/image-exif-remover"><i class="fa-solid fa-eraser"></i> EXIF Remover</a>
-        <a data-path="/tools/image-batch-renamer" href="#/tools/image-batch-renamer"><i class="fa-solid fa-file-signature"></i> Batch Renamer</a>
+      <button class="sb-cat-toggle" data-cat="img">Image Tools <i class="fa-solid fa-chevron-down"></i></button>
+      <div class="sb-cat-links" id="cat-img">
+        <a href="#image-exif-remover"  data-route="image-exif-remover"><i class="fa-solid fa-eraser"></i> EXIF Remover</a>
+        <a href="#image-batch-renamer" data-route="image-batch-renamer"><i class="fa-solid fa-file-signature"></i> Batch Renamer</a>
       </div>
     </div>
     <div class="sb-cat">
-      <button class="sb-cat-hd" data-cat="dev">Dev Tools <i class="fa-solid fa-chevron-down"></i></button>
-      <div class="sb-cat-links" id="sbc-dev">
-        <a data-path="/tools/url-metadata"   href="#/tools/url-metadata"><i class="fa-solid fa-link"></i> URL Metadata</a>
-        <a data-path="/tools/json-formatter" href="#/tools/json-formatter"><i class="fa-solid fa-code"></i> JSON Formatter</a>
-        <a data-path="/tools/regex-tester"   href="#/tools/regex-tester"><i class="fa-solid fa-magnifying-glass-plus"></i> Regex Tester</a>
+      <button class="sb-cat-toggle" data-cat="dev">Dev Tools <i class="fa-solid fa-chevron-down"></i></button>
+      <div class="sb-cat-links" id="cat-dev">
+        <a href="#url-metadata"  data-route="url-metadata"><i class="fa-solid fa-link"></i> URL Metadata</a>
+        <a href="#json-formatter" data-route="json-formatter"><i class="fa-solid fa-code"></i> JSON Formatter</a>
+        <a href="#regex-tester"  data-route="regex-tester"><i class="fa-solid fa-magnifying-glass-chart"></i> Regex Tester</a>
       </div>
     </div>
-
-    <a data-path="/docs"    href="#/docs"><i class="fa-solid fa-book si"></i> Docs</a>
-    <a data-path="/about"   href="#/about"><i class="fa-solid fa-circle-info si"></i> About</a>
-    <a data-path="/contact" href="#/contact"><i class="fa-solid fa-envelope si"></i> Contact</a>
   </div>
   <div class="sb-foot">
-    <button class="sb-theme-btn" id="sbThemeBtn">
-      <i class="fa-solid fa-moon"></i><span>Dark Mode</span>
-    </button>
+    <button class="sb-theme-row" id="sbThemeBtn"><i class="fa-solid fa-moon"></i><span>Dark Mode</span></button>
   </div>
 </div>
 
-<!-- ═══════════ MAIN ═══════════ -->
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
 <main id="main">
 
-<!-- ── HOME ─────────────────────────────────────── -->
-<section id="view-home" class="view">
-  <div class="hero">
-    <div class="wrap">
-      <div class="hero-inner">
-        <div class="hero-tag"><i class="fa-solid fa-bolt"></i> v1.0.2 &nbsp;·&nbsp; Free &amp; Open Source</div>
-        <h1 class="hero-h1">Your dev tools,<br/><em>all in one place</em></h1>
-        <p class="hero-lead">Git helpers, image utilities, JSON formatter, regex tester and more — fast, browser-based, zero installs.</p>
-        <div class="hero-cta">
-          <button class="btn btn-primary btn-lg" onclick="navigate('/tools')"><i class="fa-solid fa-table-cells"></i> Browse Tools</button>
-          <button class="btn btn-ghost btn-lg" onclick="navigate('/docs')"><i class="fa-solid fa-book"></i> Read Docs</button>
-        </div>
-        <div class="hero-stats">
-          <div><div class="hs-n">7</div><div class="hs-l">Tools</div></div>
-          <div><div class="hs-n">3</div><div class="hs-l">Categories</div></div>
-          <div><div class="hs-n">100%</div><div class="hs-l">Client-side</div></div>
-          <div><div class="hs-n">0</div><div class="hs-l">Sign-ups needed</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="sec-eye">Tools</div>
-        <h2 class="sec-h2">Everything you need, right here</h2>
-        <p class="sec-lead">Click any card to launch the tool instantly — no page reload.</p>
-      </div>
-      <div class="tools-grid" id="homeGrid"></div>
-    </div>
-  </div>
-
-  <div class="section" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="sec-eye">How it works</div>
-        <h2 class="sec-h2">Simple by design</h2>
-      </div>
-      <div class="steps-row">
-        <div class="step-card"><div class="step-num">01</div><h3>Pick a tool</h3><p>Choose from the navbar or grid. Tools open instantly with no loading screen.</p></div>
-        <div class="step-card"><div class="step-num">02</div><h3>Paste your input</h3><p>Drop files, paste text, or enter a URL. Every tool has a clear input area.</p></div>
-        <div class="step-card"><div class="step-num">03</div><h3>Get results</h3><p>Output appears instantly. Copy to clipboard or download files.</p></div>
-        <div class="step-card"><div class="step-num">04</div><h3>Stay private</h3><p>Everything runs in your browser. Nothing leaves your device (except URL Metadata).</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ALL TOOLS ─────────────────────────────────── -->
-<section id="view-tools" class="view">
-  <div class="page-header">
-    <div class="wrap">
-      <div class="sec-eye">All Tools</div>
-      <h1 class="sec-h2" style="margin-bottom:4px">Browse &amp; launch tools</h1>
-      <p class="sec-lead">Filter by category to find what you need.</p>
-    </div>
-  </div>
-  <div class="wrap" style="padding-top:26px;padding-bottom:56px">
-    <div class="cat-filter" id="catFilter">
-      <button class="cat-btn active" data-cat="all">All</button>
-      <button class="cat-btn" data-cat="git"><i class="fa-solid fa-code-branch"></i> Git</button>
-      <button class="cat-btn" data-cat="image"><i class="fa-solid fa-image"></i> Image</button>
-      <button class="cat-btn" data-cat="dev"><i class="fa-solid fa-terminal"></i> Dev</button>
-    </div>
-    <div class="tools-grid" id="allGrid"></div>
-  </div>
-</section>
-
-<!-- ── DOCS ──────────────────────────────────────── -->
-<section id="view-docs" class="view">
-  <div class="page-header">
-    <div class="wrap">
-      <div class="sec-eye">Documentation</div>
-      <h1 class="sec-h2" style="margin-bottom:4px">Tool Hlp Docs</h1>
-      <p class="sec-lead">Everything you need to get the most out of Tool Hlp.</p>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="docs-layout">
-      <aside class="docs-nav">
-        <h4>Contents</h4>
-        <a data-doc="start" href="#"><i class="fa-solid fa-rocket" style="margin-right:6px;color:var(--ac)"></i>Getting Started</a>
-        <a data-doc="git" href="#"><i class="fa-solid fa-code-branch" style="margin-right:6px;color:var(--ac)"></i>Git Tools</a>
-        <a data-doc="image" href="#"><i class="fa-solid fa-image" style="margin-right:6px;color:var(--warn)"></i>Image Tools</a>
-        <a data-doc="dev" href="#"><i class="fa-solid fa-terminal" style="margin-right:6px;color:var(--info)"></i>Dev Tools</a>
-        <a data-doc="shortcuts" href="#"><i class="fa-solid fa-keyboard" style="margin-right:6px;color:var(--ac)"></i>Keyboard</a>
-        <a data-doc="privacy" href="#"><i class="fa-solid fa-shield-halved" style="margin-right:6px;color:var(--ac)"></i>Privacy</a>
-        <a data-doc="contributing" href="#"><i class="fa-brands fa-github" style="margin-right:6px;color:var(--ac)"></i>Contributing</a>
-      </aside>
-      <div class="docs-content">
-
-        <div class="doc-section" id="doc-start">
-          <h2><i class="fa-solid fa-rocket"></i> Getting Started</h2>
-          <p>Tool Hlp is a single-page application — no installs, no server required. Just open <code>index.html</code> in any modern browser and all tools are ready to use.</p>
-          <h3>Navigation</h3>
-          <p>Use the <strong>navbar</strong> on desktop (hover over Tools for the mega menu) or the <strong>sidebar</strong> on mobile. Every tool opens instantly without a page reload.</p>
-          <h3>Dark / Light Mode</h3>
-          <p>Toggle the theme using the <i class="fa-solid fa-moon" style="color:var(--ac)"></i> button in the top-right corner. Your preference is saved automatically.</p>
-          <h3>Serving locally</h3>
-          <pre>python -m http.server 3000   # Python 3
-npx serve .                  # Node.js</pre>
-          <p>Most tools work on <code>file://</code> directly. The URL Metadata tool needs an internet connection to call external APIs.</p>
-        </div>
-
-        <div class="doc-section" id="doc-git">
-          <h2><i class="fa-solid fa-code-branch"></i> Git Tools</h2>
-          <div class="docs-tool-list">
-            <div class="docs-tool-item" onclick="navigate('/tools/commit-generator')">
-              <i class="fa-solid fa-code-commit"></i>
-              <div><h4>Commit Generator</h4><p>Builds multi-line <code>git commit</code> commands for CMD, PowerShell, and Bash/Zsh. Supports conventional commit types, scope, breaking-change flag, and character counter.</p></div>
-            </div>
-            <div class="docs-tool-item" onclick="navigate('/tools/git-log-visualizer')">
-              <i class="fa-solid fa-diagram-project"></i>
-              <div><h4>Log Visualizer</h4><p>Paste <code>git log</code> output and see a color-coded commit timeline with branch refs, author, and relative timestamps. Click any row for full detail.</p></div>
-            </div>
+  <!-- ────────── HOME ────────── -->
+  <section id="view-home" class="view active">
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-tag"><i class="fa-solid fa-bolt"></i> <span class="version-label">v1.0.4</span> — Modern &amp; Minimal</div>
+          <h1 class="hero-h1">Essential <em>Dev Tools</em><br>in one place.</h1>
+          <p class="hero-lead">Fast, local, and browser-based utilities to help you build better software. No sign-ups, no data leaves your machine.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" onclick="navigate('tools')"><i class="fa-solid fa-grid-2"></i> Explore Tools</button>
+            <button class="btn btn-ghost btn-lg" onclick="navigate('docs')"><i class="fa-solid fa-book"></i> Read Docs</button>
           </div>
-          <h3>Recommended log format</h3>
-          <pre>git log --pretty=format:"%h|%s|%an|%ar|%D" --all</pre>
-          <p>The visualizer also accepts plain <code>git log --oneline</code> output.</p>
-          <h3>Conventional Commit types</h3>
-          <p><code>feat</code> · <code>fix</code> · <code>docs</code> · <code>style</code> · <code>refactor</code> · <code>test</code> · <code>chore</code> · <code>perf</code> · <code>ci</code> · <code>build</code> · <code>revert</code></p>
-        </div>
-
-        <div class="doc-section" id="doc-image">
-          <h2><i class="fa-solid fa-image"></i> Image Tools</h2>
-          <div class="docs-tool-list">
-            <div class="docs-tool-item" onclick="navigate('/tools/image-exif-remover')">
-              <i class="fa-solid fa-eraser"></i>
-              <div><h4>EXIF Remover</h4><p>Strips GPS location, creation dates, and camera metadata from JPEG/PNG/WebP images using the HTML5 Canvas API. Two modes: strip all metadata, or remove date fields only.</p></div>
-            </div>
-            <div class="docs-tool-item" onclick="navigate('/tools/image-batch-renamer')">
-              <i class="fa-solid fa-file-signature"></i>
-              <div><h4>Batch Renamer</h4><p>Upload multiple images, drag to reorder, configure a naming pattern (prefix, separator, padding, suffix, extension), preview all new filenames, then download as a ZIP.</p></div>
-            </div>
+          <div class="hero-stats">
+            <div><div class="hs-num">7</div><div class="hs-lbl">Tools</div></div>
+            <div><div class="hs-num">100%</div><div class="hs-lbl">Private</div></div>
+            <div><div class="hs-num">0ms</div><div class="hs-lbl">Latency</div></div>
+            <div><div class="hs-num">0KB</div><div class="hs-lbl">Uploaded</div></div>
           </div>
-          <h3>Notes</h3>
-          <ul>
-            <li>JPEG files retain ~95% quality after canvas redraw</li>
-            <li>PNG files are losslessly re-encoded</li>
-            <li>No images are uploaded to any server</li>
-          </ul>
         </div>
+      </div>
+    </div>
 
-        <div class="doc-section" id="doc-dev">
-          <h2><i class="fa-solid fa-terminal"></i> Dev Tools</h2>
-          <div class="docs-tool-list">
-            <div class="docs-tool-item" onclick="navigate('/tools/url-metadata')">
-              <i class="fa-solid fa-link"></i>
-              <div><h4>URL Metadata</h4><p>Extracts Open Graph data using a 4-engine fallback: Microlink → Dub.co → JSONLink → raw DOM parse. Shows title, description, image, video, language, keywords, and favicon.</p></div>
-            </div>
-            <div class="docs-tool-item" onclick="navigate('/tools/json-formatter')">
-              <i class="fa-solid fa-code"></i>
-              <div><h4>JSON Formatter</h4><p>Prettify with 2-space indentation, minify to single line, or validate with error position (line + column). Syntax highlighting for keys, strings, numbers, booleans, and nulls.</p></div>
-            </div>
-            <div class="docs-tool-item" onclick="navigate('/tools/regex-tester')">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
-              <div><h4>Regex Tester</h4><p>Live match highlighting as you type, full flag support (g i m s u y), capture group display, and a 16-item click-to-insert cheat sheet. 1000-match safety cap prevents hangs.</p></div>
-            </div>
+    <div class="tools-section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-eyebrow">Tools</div>
+          <h2 class="sec-h2">Everything you need, right here</h2>
+          <p class="sec-lead">Click any card to open the tool instantly — no page reload.</p>
+        </div>
+        <div class="tools-grid" id="homeToolsGrid"></div>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-eyebrow">How it works</div>
+          <h2 class="sec-h2">Simple, fast, powerful</h2>
+        </div>
+        <div class="steps-row">
+          <div class="step-card"><div class="step-num">01</div><h3>Pick a tool</h3><p>Choose from the navbar or the tools grid. Everything opens instantly, no loading or routing delays.</p></div>
+          <div class="step-card"><div class="step-num">02</div><h3>Paste your input</h3><p>Drop files, paste text, or enter a URL — each tool has a clear, focused input area.</p></div>
+          <div class="step-card"><div class="step-num">03</div><h3>Get your output</h3><p>Results appear instantly. Copy to clipboard, download files, or keep refining.</p></div>
+          <div class="step-card"><div class="step-num">04</div><h3>Your data stays local</h3><p>Everything runs in your browser. Nothing is ever sent to any server (except the URL Metadata tool).</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── ALL TOOLS ────────── -->
+  <section id="view-tools" class="view">
+    <div class="tools-page-header">
+      <div class="container">
+        <div class="sec-eyebrow">All Tools</div>
+        <h1 class="sec-h2" style="margin-bottom:6px">Browse &amp; launch tools</h1>
+        <p class="sec-lead">Filter by category to find exactly what you need.</p>
+      </div>
+    </div>
+    <div class="container" style="padding-top:28px;padding-bottom:60px">
+      <div class="cat-filter" id="catFilter">
+        <button class="cat-btn active" data-cat="all"><i class="fa-solid fa-border-all"></i> All Tools</button>
+        <button class="cat-btn" data-cat="git"><i class="fa-solid fa-code-branch"></i> Git</button>
+        <button class="cat-btn" data-cat="image"><i class="fa-solid fa-image"></i> Image</button>
+        <button class="cat-btn" data-cat="dev"><i class="fa-solid fa-terminal"></i> Developer</button>
+      </div>
+      <div class="tools-grid" id="allToolsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ────────── ABOUT ────────── -->
+  <section id="view-about" class="view">
+    <!-- About Hero -->
+    <div class="about-hero">
+      <div class="hero-glow"></div>
+      <div class="container">
+        <div class="about-hero-inner">
+          <div class="about-hero-text">
+            <div class="sec-eyebrow">About</div>
+            <h1 class="sec-h2" style="margin-bottom:16px">Built for developers,<br/>by a developer.</h1>
+            <p style="font-size:16px;color:var(--text-muted);line-height:1.75;max-width:500px">ToolHlp is a curated set of browser-based utilities focused on speed, privacy, and simplicity. No trackers, no sign-up. Everything runs locally in your browser.</p>
+          </div>
+          <div class="about-hero-stats">
+            <div class="about-stat-card"><div class="asc-num">7</div><div class="asc-lbl">Tools</div></div>
+            <div class="about-stat-card"><div class="asc-num">3</div><div class="asc-lbl">Categories</div></div>
+            <div class="about-stat-card"><div class="asc-num version-label">v1.0.4</div><div class="asc-lbl">Version</div></div>
+            <div class="about-stat-card"><div class="asc-num">100%</div><div class="asc-lbl">Private</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:80px">
+
+      <!-- Project story -->
+      <div class="about-story">
+        <div class="about-story-text">
+          <div class="about-section-tag"><i class="fa-solid fa-circle-info"></i> The Project</div>
+          <h2>What is ToolHlp?</h2>
+          <p>This project started as a simple git commit message helper — a frustration with having to remember the correct multi-line <code>git commit</code> syntax every time. It grew into a full toolkit for everyday developer needs.</p>
+          <p>Every tool is built with vanilla web technologies — no frameworks, no npm, no build step. Just open and use. The zero-dependency philosophy keeps it fast, auditable, and easy to self-host.</p>
+          <div class="about-feature-row">
+            <div class="about-feature"><i class="fa-solid fa-shield-halved"></i><span>Privacy First — all processing runs in your browser</span></div>
+            <div class="about-feature"><i class="fa-solid fa-bolt"></i><span>Instant — no loading, no latency, no sign-up</span></div>
+            <div class="about-feature"><i class="fa-solid fa-code"></i><span>Open Source — fully transparent codebase on GitHub</span></div>
+            <div class="about-feature"><i class="fa-solid fa-mobile-screen"></i><span>Responsive — works on any device, any screen size</span></div>
           </div>
         </div>
 
-        <div class="doc-section" id="doc-shortcuts">
-          <h2><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h2>
-          <table class="shortcut-tbl">
-            <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
-            <tbody>
-              <tr><td><span class="kbd">Alt</span> + <span class="kbd">H</span></td><td>Go to Home</td></tr>
-              <tr><td><span class="kbd">Alt</span> + <span class="kbd">T</span></td><td>Go to Tools</td></tr>
-              <tr><td><span class="kbd">Alt</span> + <span class="kbd">D</span></td><td>Go to Docs</td></tr>
-              <tr><td><span class="kbd">Esc</span></td><td>Close sidebar / mega menu</td></tr>
-              <tr><td><span class="kbd">Enter</span></td><td>Submit URL in URL Metadata tool</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="doc-section" id="doc-privacy">
-          <h2><i class="fa-solid fa-shield-halved"></i> Privacy</h2>
-          <p>Tool Hlp is designed to be privacy-first:</p>
-          <ul>
-            <li>No analytics, no cookies, no telemetry</li>
-            <li>All image processing happens in your browser via Canvas API — images never leave your device</li>
-            <li>JSON, regex, and git log data never leave your browser</li>
-            <li>The URL Metadata tool makes requests to third-party APIs (Microlink, Dub.co, JSONLink, AllOrigins) — only the URL you type is shared with those services</li>
-            <li>localStorage stores only theme preference and URL scan history</li>
-          </ul>
-        </div>
-
-        <div class="doc-section" id="doc-contributing">
-          <h2><i class="fa-brands fa-github"></i> Contributing</h2>
-          <p>Tool Hlp is open source. Contributions, bug reports, and tool suggestions are welcome.</p>
-          <pre>git clone https://github.com/muhtasim-rahman/devkit.git
-cd devkit
-# Open index.html directly — no build step needed</pre>
-          <p>To add a new tool, see <code>CONTRIBUTING.md</code> in the repository for the full checklist.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <a class="btn btn-secondary btn-sm link-repo" href="#" target="_blank"><i class="fa-brands fa-github"></i> View on GitHub</a>
-            <a class="btn btn-ghost btn-sm link-repo" href="#" target="_blank" onclick="this.href=SITE.repo+'/issues/new'"><i class="fa-solid fa-circle-exclamation"></i> Report a Bug</a>
+        <div class="about-stack-card">
+          <div class="about-section-tag" style="margin-bottom:16px"><i class="fa-solid fa-layer-group"></i> Tech Stack</div>
+          <div class="stack-list">
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b"><i class="fa-brands fa-html5"></i></div><div><div class="stack-name">HTML5</div><div class="stack-desc">Single-file SPA shell</div></div></div>
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(59,130,246,0.15);color:#3b82f6"><i class="fa-brands fa-css3-alt"></i></div><div><div class="stack-name">CSS3</div><div class="stack-desc">Custom properties, no framework</div></div></div>
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(234,179,8,0.15);color:#eab308"><i class="fa-brands fa-js"></i></div><div><div class="stack-name">JavaScript ES6+</div><div class="stack-desc">Vanilla, no React or Vue</div></div></div>
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(16,185,129,0.15);color:#10b981"><i class="fa-solid fa-font"></i></div><div><div class="stack-name">Google Fonts</div><div class="stack-desc">Plus Jakarta Sans, Inter</div></div></div>
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(139,92,246,0.15);color:#8b5cf6"><i class="fa-solid fa-icons"></i></div><div><div class="stack-name">Font Awesome 6</div><div class="stack-desc">Free tier icons only</div></div></div>
+            <div class="stack-item"><div class="stack-icon" style="background:rgba(239,68,68,0.15);color:#ef4444"><i class="fa-solid fa-file-zipper"></i></div><div><div class="stack-name">JSZip 3.10</div><div class="stack-desc">Client-side ZIP creation</div></div></div>
           </div>
         </div>
-
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── ABOUT ──────────────────────────────────────── -->
-<section id="view-about" class="view">
-  <div class="page-header">
-    <div class="wrap">
-      <div class="sec-eye">About</div>
-      <h1 class="sec-h2" style="margin-bottom:4px">About Tool Hlp</h1>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="about-stats">
-      <div class="astat"><div class="astat-n">7</div><div class="astat-l">Tools</div></div>
-      <div class="astat"><div class="astat-n">3</div><div class="astat-l">Categories</div></div>
-      <div class="astat"><div class="astat-n site-version">v1.0.2</div><div class="astat-l">Version</div></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <h2>What is Tool Hlp?</h2>
-        <p>Tool Hlp is a free, browser-based SPA that bundles everyday developer utilities into one place. Everything runs client-side — no backend, no accounts, no tracking.</p>
-        <p>It started as a git commit helper and grew into a multi-tool hub. The design philosophy is simplicity: open the HTML file, use the tools, done.</p>
-        <h2 style="margin-top:20px">Tech Stack</h2>
-        <div class="tech-pills">
-          <span class="tech-pill">HTML5</span><span class="tech-pill">CSS3 (Custom Props)</span>
-          <span class="tech-pill">Vanilla JS ES6+</span><span class="tech-pill">Hash Router</span>
-          <span class="tech-pill">Font Awesome 6</span><span class="tech-pill">Google Fonts</span>
-          <span class="tech-pill">JSZip 3.10</span><span class="tech-pill">Canvas API</span>
-          <span class="tech-pill">localStorage</span>
+      <!-- Creator card -->
+      <div class="creator-section">
+        <div class="about-section-tag" style="margin-bottom:28px"><i class="fa-solid fa-user"></i> Creator</div>
+        <div class="creator-card">
+          <div class="creator-photo-wrap">
+            <img src="assets/img/muhtasim.png" alt="Muhtasim Rahman" class="creator-photo" />
+            <div class="creator-photo-ring"></div>
+          </div>
+          <div class="creator-info">
+            <div class="creator-name">Muhtasim Rahman</div>
+            <div class="creator-handle">@muhtasim-rahman</div>
+            <p class="creator-bio">A developer who believes the best tools are the ones that get out of your way. I built ToolHlp because I wanted a clean, private, fast alternative to scattered online utilities — and then kept adding to it.</p>
+            <div class="creator-links">
+              <a href="https://mdturzo.web.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-solid fa-globe"></i> Portfolio</a>
+              <a href="https://github.com/muhtasim-rahman" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a href="mailto:mdturzo.dev@gmail.com" class="btn btn-ghost btn-sm"><i class="fa-solid fa-envelope"></i> Email</a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="team-card">
-        <div class="team-av">MR</div>
-        <div class="team-name">Muhtasim Rahman</div>
-        <div class="team-role">Creator &amp; Developer</div>
-        <p class="team-bio">Full-stack developer who builds tools to solve everyday dev friction. Tool Hlp is a side project that collects those one-off utilities into a single, polished place.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-          <a class="btn btn-secondary btn-sm link-github" href="#" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a class="btn btn-ghost btn-sm link-portfolio" href="#" target="_blank"><i class="fa-solid fa-globe"></i> Portfolio</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── CONTACT ────────────────────────────────────── -->
-<section id="view-contact" class="view">
-  <div class="page-header">
-    <div class="wrap">
-      <div class="sec-eye">Contact</div>
-      <h1 class="sec-h2" style="margin-bottom:4px">Get in touch</h1>
     </div>
-  </div>
-  <div class="wrap">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <h2>Have a tool idea or found a bug?</h2>
-        <p>Open an issue on GitHub or send a message below. All feedback is welcome.</p>
-        <div class="contact-links">
-          <a class="contact-link link-repo" href="#" target="_blank"><i class="fa-brands fa-github"></i> GitHub Repository</a>
-          <a class="contact-link link-portfolio" href="#" target="_blank"><i class="fa-solid fa-globe"></i> Portfolio</a>
-        </div>
-      </div>
-      <div class="contact-form">
-        <h3>Send a message</h3>
-        <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" id="cfName" placeholder="Your name"/></div>
-        <div class="form-group"><label class="form-label">Email (optional)</label><input class="form-input" type="email" id="cfEmail" placeholder="you@example.com"/></div>
-        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" rows="5" id="cfMsg" placeholder="Bug report, tool suggestion, feedback…"></textarea></div>
-        <button class="btn btn-primary" style="width:100%" onclick="submitContact()"><i class="fa-solid fa-paper-plane"></i> Send via GitHub</button>
-        <p class="form-hint" style="margin-top:8px;text-align:center">Opens a pre-filled GitHub issue.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════════════
-     TOOL: COMMIT GENERATOR
-════════════════════════════════════════════════════ -->
-<section id="view-commit-generator" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>Commit Generator</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon green"><i class="fa-solid fa-code-commit"></i></div>
-      <div>
-        <span class="badge badge-git"><i class="fa-solid fa-code-branch"></i> Git</span>
-        <h1 class="t-title">Git Commit Generator</h1>
-        <p class="t-desc">Generate properly formatted multi-line git commit commands for CMD, PowerShell, and Bash/Zsh with conventional commit support.</p>
+  <!-- ────────── CONTACT ────────── -->
+  <section id="view-contact" class="view">
+    <div class="tools-page-header">
+      <div class="container">
+        <div class="sec-eyebrow">Contact</div>
+        <h1 class="sec-h2">Get in touch</h1>
       </div>
     </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="commit"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-commit"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Select commit type</h4><p>Click a conventional commit type (feat, fix…) to auto-prefix the title.</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Enter title</h4><p>Write a short imperative subject line. Keep it under 72 characters.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Add description (optional)</h4><p>Each new line becomes a separate <code>-m</code> flag in the command.</p></div></div>
-        <div class="guide-step"><div class="gs-n">4</div><div class="gs-text"><h4>Pick your shell &amp; copy</h4><p>Switch tabs for CMD / PowerShell / Bash. Hit Copy and paste into your terminal.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="tl tl-split">
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-pen-to-square"></i> Input</div></div>
-        <div class="panel-body">
+    <div class="container" style="padding-bottom:64px">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Have feedback or a tool idea?</h2>
+          <p>Found a bug, want to suggest a new tool, or just want to say hi? Open an issue on GitHub or send a message below.</p>
+          <div class="contact-links">
+            <a href="https://github.com/muhtasim-rahman/toolhlp" target="_blank" rel="noopener" class="contact-link"><i class="fa-brands fa-github"></i> GitHub Repository</a>
+            <a href="https://github.com/muhtasim-rahman/toolhlp/issues" target="_blank" rel="noopener" class="contact-link"><i class="fa-solid fa-circle-exclamation"></i> Report a Bug / Request a Feature</a>
+            <a href="mailto:mdturzo.dev@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> mdturzo.dev@gmail.com</a>
+            <a href="https://mdturzo.web.app" target="_blank" rel="noopener" class="contact-link"><i class="fa-solid fa-globe"></i> Portfolio</a>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3>Send a message</h3>
           <div class="form-group">
-            <label class="form-label">Conventional Commit Type</label>
-            <div class="commit-types" id="commitTypes">
-              <button class="ct-btn" data-type="feat">feat</button><button class="ct-btn" data-type="fix">fix</button>
-              <button class="ct-btn" data-type="docs">docs</button><button class="ct-btn" data-type="style">style</button>
-              <button class="ct-btn" data-type="refactor">refactor</button><button class="ct-btn" data-type="test">test</button>
-              <button class="ct-btn" data-type="chore">chore</button><button class="ct-btn" data-type="perf">perf</button>
-              <button class="ct-btn" data-type="ci">ci</button><button class="ct-btn" data-type="build">build</button>
-              <button class="ct-btn" data-type="revert">revert</button>
-            </div>
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="e.g. John Doe" id="cfName" />
           </div>
           <div class="form-group">
-            <label class="form-label">Commit Title <span style="color:var(--danger)">*</span></label>
-            <input class="form-input" type="text" id="commitTitle" placeholder="add user authentication" maxlength="120"/>
-            <div class="char-c" id="titleCounter">0 / 72</div>
+            <label class="form-label">Email (optional)</label>
+            <input class="form-input" type="email" placeholder="you@example.com" id="cfEmail" />
           </div>
           <div class="form-group">
-            <label class="form-label">Description <span style="color:var(--tx-f);font-weight:400">(optional — each line = paragraph)</span></label>
-            <textarea class="form-textarea" id="commitBody" rows="5" placeholder="- Add JWT token validation&#10;- Update middleware stack&#10;- Fix session timeout"></textarea>
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" rows="5" placeholder="Your message or tool suggestion..." id="cfMsg"></textarea>
           </div>
-          <div class="form-group" style="display:flex;gap:16px;flex-wrap:wrap">
-            <label class="toggle"><input type="checkbox" id="breakingChange"/><div class="tog-track"></div><span class="tog-label">Breaking change</span></label>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scope (optional)</label>
-            <input class="form-input" type="text" id="commitScope" placeholder="auth, api, ui…"/>
-          </div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="shell-tabs" id="shellTabs">
-          <button class="shell-tab active" data-shell="cmd"><i class="fa-brands fa-windows"></i> CMD</button>
-          <button class="shell-tab" data-shell="powershell"><i class="fa-solid fa-terminal"></i> PowerShell</button>
-          <button class="shell-tab" data-shell="bash"><i class="fa-brands fa-linux"></i> Bash/Zsh</button>
-        </div>
-        <div class="panel-body">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
-            <label class="form-label" style="margin:0">Generated Command</label>
-            <button class="btn btn-ghost btn-sm" id="copyCmd"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <div class="cmd-out" id="cmdOutput">Fill in a title to generate the command…</div>
-          <hr class="div"/>
-          <label class="form-label">Preview</label>
-          <div class="git-preview">
-            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:3px">
-              <span class="git-hash" id="prevHash">a1b2c3d</span>
-              <span class="git-msg" id="previewMsg" style="color:var(--tx-f)">Your message will appear here</span>
-            </div>
-            <div style="font-size:11px;color:var(--tx-f)" id="previewMeta"></div>
-          </div>
-          <hr class="div"/>
-          <div style="display:flex;gap:7px">
-            <button class="btn btn-ghost btn-sm" onclick="clearCommit()"><i class="fa-solid fa-trash"></i> Clear</button>
-            <button class="btn btn-ghost btn-sm" onclick="copyPreview()"><i class="fa-solid fa-clipboard"></i> Copy Preview</button>
-          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="submitContact()"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          <p class="form-hint" style="margin-top:10px;text-align:center">Your message will be sent directly via your email client.</p>
         </div>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
 
-<!-- ══════════════════════════════════════════════════
-     TOOL: GIT LOG VISUALIZER
-════════════════════════════════════════════════════ -->
-<section id="view-git-log-visualizer" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>Log Visualizer</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon green"><i class="fa-solid fa-diagram-project"></i></div>
-      <div>
-        <span class="badge badge-git"><i class="fa-solid fa-code-branch"></i> Git</span>
-        <h1 class="t-title">Git Log Visualizer</h1>
-        <p class="t-desc">Paste <code>git log</code> output and get a clean, color-coded commit timeline with branch info, author, and timestamps.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="gitlog"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-gitlog"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Run in your repo</h4><p><code>git log --pretty=format:"%h|%s|%an|%ar|%D" --all</code></p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Copy &amp; paste</h4><p>Select all terminal output and paste into the input box.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Click Visualize</h4><p>See the color-coded timeline. Click any row for full commit detail.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="tl tl-split" style="align-items:start">
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-paste"></i> Paste Log</div><button class="btn btn-ghost btn-sm" onclick="loadGitSample()"><i class="fa-solid fa-flask"></i> Sample</button></div>
-        <div class="panel-body">
-          <textarea class="form-textarea" id="gitLogInput" rows="13" placeholder="Paste git log output here…&#10;&#10;Formats supported:&#10;• git log --pretty=format:&quot;%h|%s|%an|%ar|%D&quot; --all&#10;• git log --oneline --all"></textarea>
-          <div style="display:flex;gap:7px;margin-top:10px">
-            <button class="btn btn-primary" onclick="visualizeLog()" style="flex:1"><i class="fa-solid fa-diagram-project"></i> Visualize</button>
-            <button class="btn btn-ghost btn-sm" onclick="clearLog()"><i class="fa-solid fa-trash"></i></button>
+  <section id="view-commit-generator" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>Commit Generator</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon teal"><i class="fa-solid fa-code-commit"></i></div>
+          <div>
+            <span class="badge badge-git"><i class="fa-solid fa-code-branch"></i> Git</span>
+            <h1 class="t-title">Git Commit Generator</h1>
+            <p class="t-desc">Generate properly formatted, multi-line git commit commands for CMD, PowerShell, and Bash/Zsh with conventional commit support.</p>
           </div>
         </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-chart-gantt"></i> Timeline</div><div id="logStatsRow" class="panel-acts"></div></div>
-          <div class="panel-body" style="padding:0">
-            <div class="log-canvas" id="logCanvas"><div class="log-empty"><i class="fa-solid fa-code-branch"></i><p>Paste log and click Visualize</p></div></div>
-          </div>
-        </div>
-        <div class="panel" id="commitDetail" style="display:none">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-info"></i> Commit Detail</div><button class="btn btn-ghost btn-sm" onclick="document.getElementById('commitDetail').style.display='none'"><i class="fa-solid fa-xmark"></i></button></div>
-          <div class="panel-body" id="commitDetailBody"></div>
-        </div>
-      </div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     TOOL: IMAGE EXIF REMOVER
-════════════════════════════════════════════════════ -->
-<section id="view-image-exif-remover" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>EXIF Remover</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon amber"><i class="fa-solid fa-eraser"></i></div>
-      <div>
-        <span class="badge badge-img"><i class="fa-solid fa-image"></i> Image</span>
-        <h1 class="t-title">Image EXIF Remover</h1>
-        <p class="t-desc">Strip GPS, creation dates, and camera metadata from images entirely in your browser. Nothing is uploaded to any server.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="exif"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-exif"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Upload images</h4><p>Drag &amp; drop or click to select JPEG, PNG, or WebP files. Multiple files supported.</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Choose mode</h4><p>Strip ALL metadata (recommended) or dates only to preserve camera/lens info.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Process &amp; download</h4><p>Click Process All, then download individually or as a ZIP archive.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="tl tl-split" style="align-items:start">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-upload"></i> Upload</div></div>
-          <div class="panel-body">
-            <div class="drop-zone" id="exifDropZone"><i class="fa-solid fa-images dz-ico"></i><h3>Drop images here</h3><p>or click to browse · JPEG, PNG, WebP</p><input type="file" id="exifFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none"/></div>
-            <div class="img-grid" id="exifThumbGrid"></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-sliders"></i> Options</div></div>
-          <div class="panel-body">
-            <div class="form-group">
-              <label class="form-label">Removal Mode</label>
-              <select class="form-select" id="exifMode">
-                <option value="all">Strip ALL metadata (recommended)</option>
-                <option value="dates">Remove date fields only</option>
-              </select>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="commit">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-commit">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Select commit type</h4><p>Click a conventional commit type (feat, fix, docs…) to prefix your title automatically.</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Enter the title</h4><p>Write a short, imperative subject line (max 72 chars recommended).</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Add description (optional)</h4><p>Add context, bullet points, or breaking change info. Each new line becomes a separate <code>-m</code> flag.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Choose your shell</h4><p>Switch between CMD, PowerShell, and Bash/Zsh. The command escapes special characters correctly for each shell.</p></div></div>
+              <div class="guide-step"><div class="gs-num">5</div><div class="gs-text"><h4>Copy & paste</h4><p>Hit the copy button and paste the full command into your terminal.</p></div></div>
             </div>
-            <div style="display:flex;gap:7px;flex-wrap:wrap">
-              <button class="btn btn-primary" id="exifProcessBtn" onclick="processExif()" disabled><i class="fa-solid fa-wand-magic-sparkles"></i> Process All</button>
-              <button class="btn btn-secondary" id="exifDownloadZip" onclick="downloadExifZip()" disabled><i class="fa-solid fa-file-zipper"></i> ZIP</button>
-              <button class="btn btn-ghost btn-sm" onclick="clearExif()"><i class="fa-solid fa-trash"></i></button>
-            </div>
-            <div class="prog" id="exifProg" style="margin-top:10px;display:none"><div class="prog-fill" id="exifProgFill" style="width:0%"></div></div>
           </div>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-info"></i> Metadata Preview</div></div>
-        <div class="panel-body" id="exifInfoPanel"><div style="text-align:center;padding:36px 16px;color:var(--tx-f)"><i class="fa-solid fa-image" style="font-size:28px;display:block;margin-bottom:9px"></i><p>Upload images to see metadata</p></div></div>
-      </div>
     </div>
-  </div></div>
-</section>
 
-<!-- ══════════════════════════════════════════════════
-     TOOL: IMAGE BATCH RENAMER
-════════════════════════════════════════════════════ -->
-<section id="view-image-batch-renamer" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>Batch Renamer</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon amber"><i class="fa-solid fa-file-signature"></i></div>
-      <div>
-        <span class="badge badge-img"><i class="fa-solid fa-image"></i> Image</span>
-        <h1 class="t-title">Image Batch Renamer</h1>
-        <p class="t-desc">Upload multiple images, drag to reorder, set a naming pattern, preview filenames, and download as a ZIP — all in your browser.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="batch"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-batch"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Upload</h4><p>Drag &amp; drop or select multiple images at once.</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Reorder</h4><p>Drag the ⠿ handle on each row to set the final sequence.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Set pattern &amp; download</h4><p>Configure prefix, number, separator, suffix. Click Download ZIP.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="tl tl-split" style="align-items:start">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-upload"></i> Upload</div></div>
-          <div class="panel-body">
-            <div class="drop-zone" id="batchDropZone"><i class="fa-solid fa-images dz-ico"></i><h3>Drop images here</h3><p>or click to browse · multiple selection</p><input type="file" id="batchFileInput" accept="image/*" multiple style="display:none"/></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Naming Pattern</div></div>
-          <div class="panel-body">
-            <div class="pat-builder">
-              <div class="pat-row">
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Prefix</label><input class="form-input" id="rnPrefix" value="image"/></div>
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Separator</label><select class="form-select" id="rnSep"><option value="_">Underscore _</option><option value="-">Hyphen -</option><option value=".">Dot .</option><option value="">None</option></select></div>
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Start #</label><input class="form-input" id="rnStart" type="number" value="1" min="0"/></div>
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Padding</label><select class="form-select" id="rnPad"><option value="1">1 digit</option><option value="2">2 digits</option><option value="3" selected>3 digits</option><option value="4">4 digits</option></select></div>
+    <div class="tool-content">
+      <div class="container">
+        <div class="tool-layout split">
+          <!-- Input panel -->
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title"><i class="fa-solid fa-pen-to-square"></i> Input</div>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label class="form-label">Commit Type (Conventional Commits)</label>
+                <div class="commit-types" id="commitTypes">
+                  <button class="ct-btn" data-type="feat">feat</button>
+                  <button class="ct-btn" data-type="fix">fix</button>
+                  <button class="ct-btn" data-type="docs">docs</button>
+                  <button class="ct-btn" data-type="style">style</button>
+                  <button class="ct-btn" data-type="refactor">refactor</button>
+                  <button class="ct-btn" data-type="test">test</button>
+                  <button class="ct-btn" data-type="chore">chore</button>
+                  <button class="ct-btn" data-type="perf">perf</button>
+                  <button class="ct-btn" data-type="ci">ci</button>
+                  <button class="ct-btn" data-type="build">build</button>
+                  <button class="ct-btn" data-type="revert">revert</button>
+                </div>
               </div>
-              <div class="pat-row" style="margin-top:8px">
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Suffix</label><input class="form-input" id="rnSuffix" placeholder="_hd"/></div>
-                <div class="form-group" style="margin-bottom:0"><label class="form-label">Extension</label><select class="form-select" id="rnExt"><option value="keep">Keep original</option><option value="jpg">.jpg</option><option value="png">.png</option><option value="webp">.webp</option></select></div>
+              <div class="form-group">
+                <label class="form-label">Commit Title <span style="color:var(--danger)">*</span></label>
+                <input class="form-input" type="text" id="commitTitle" placeholder="e.g. add user authentication" maxlength="120" />
+                <div class="char-counter" id="titleCounter">0 / 72</div>
               </div>
-              <div class="pat-preview" id="patternPreview">image_001.jpg</div>
-            </div>
-            <div style="display:flex;gap:7px">
-              <button class="btn btn-primary" id="batchDownloadBtn" onclick="downloadBatchZip()" disabled><i class="fa-solid fa-file-zipper"></i> Download ZIP</button>
-              <button class="btn btn-ghost btn-sm" onclick="clearBatch()"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-list-ol"></i> Files <span id="batchCount" style="color:var(--tx-f);font-weight:400"></span></div><button class="btn btn-ghost btn-sm" onclick="batchSortName()"><i class="fa-solid fa-arrow-down-a-z"></i></button></div>
-        <div class="panel-body">
-          <div class="rn-list" id="renameList"><div style="text-align:center;padding:36px 16px;color:var(--tx-f)"><i class="fa-solid fa-images" style="font-size:28px;display:block;margin-bottom:9px"></i><p>Upload images to see the list</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     TOOL: URL METADATA
-════════════════════════════════════════════════════ -->
-<section id="view-url-metadata" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>URL Metadata</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-link"></i></div>
-      <div>
-        <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
-        <h1 class="t-title">URL Metadata Extractor</h1>
-        <p class="t-desc">Extract Open Graph metadata, thumbnails, video sources, titles and keywords from any URL using multi-engine fallback extraction.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="url"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-url"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Enter URL</h4><p>Paste any website URL. <code>https://</code> is added automatically if omitted.</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Deep Scan</h4><p>Tries 4 extraction engines in sequence — Microlink, Dub.co, JSONLink, raw DOM.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>View results</h4><p>See title, description, thumbnail, video, domain, author, language, keywords.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="panel" style="margin-bottom:12px">
-      <div class="panel-body">
-        <div class="input-row">
-          <div style="position:relative;flex:1">
-            <input class="form-input" type="url" id="urlInput" placeholder="Paste a URL here…" autocomplete="off"/>
-            <button id="urlClearBtn" onclick="clearUrl()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);display:none;color:var(--tx-f);font-size:13px"><i class="fa-solid fa-xmark"></i></button>
-            <div id="urlSuggestions" style="position:absolute;top:100%;left:0;right:0;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r-m);margin-top:4px;z-index:100;display:none;box-shadow:var(--sh-m);overflow:hidden"></div>
-          </div>
-          <button class="btn btn-primary" id="urlScanBtn" onclick="startUrlScan()"><i class="fa-solid fa-satellite-dish"></i> Deep Scan</button>
-        </div>
-      </div>
-    </div>
-    <div class="panel" id="urlLoader" style="display:none;margin-bottom:12px">
-      <div class="panel-body"><div class="spin-wrap"><div class="meta-spin"></div><p style="font-weight:600">Scanning…</p><p style="font-size:12px;color:var(--tx-m)">Trying multiple engines</p></div><div class="log-box" id="urlLogBox"></div></div>
-    </div>
-    <div id="urlResultsWrap" style="display:none">
-      <div class="url-grid">
-        <div class="panel url-full" id="urlVideoCard" style="display:none"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-film"></i> Video</div></div><div class="panel-body"><div class="url-media" id="urlVideoBox"></div></div></div>
-        <div class="panel url-full"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-image"></i> Thumbnail</div></div><div class="panel-body"><div class="url-media" id="urlImageBox"><div class="no-media"><i class="fa-solid fa-image" style="font-size:22px;display:block;margin-bottom:6px"></i>No image</div></div></div></div>
-        <div class="panel"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-file-lines"></i> Core</div></div><div class="panel-body">
-          <div class="info-row"><span class="ik">Title</span><span class="iv hl" id="rTitle">—</span></div>
-          <div class="info-row"><span class="ik">Type</span><span class="iv" id="rType">—</span></div>
-          <div class="info-row"><span class="ik">Domain</span><span class="iv" id="rDomain">—</span></div>
-          <div class="info-row"><span class="ik">Provider</span><span class="iv" id="rProvider">—</span></div>
-        </div></div>
-        <div class="panel"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-info"></i> Technical</div></div><div class="panel-body">
-          <div class="info-row"><span class="ik">Author</span><span class="iv" id="rAuthor">—</span></div>
-          <div class="info-row"><span class="ik">Language</span><span class="iv" id="rLang">—</span></div>
-          <div class="info-row"><span class="ik">Favicon</span><span class="iv"><img id="rFav" style="width:18px;height:18px;border-radius:3px;display:none"/></span></div>
-          <div class="info-row"><span class="ik">Engine</span><span class="iv eng" id="rEngine">—</span></div>
-        </div></div>
-        <div class="panel url-full"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-align-left"></i> Description</div></div><div class="panel-body"><p id="rDesc" style="font-size:13.5px;line-height:1.75;color:var(--tx-m)">—</p></div></div>
-        <div class="panel url-full" id="urlTagsCard"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-tags"></i> Keywords</div></div><div class="panel-body"><div class="tag-cloud" id="rTags"></div></div></div>
-        <div class="panel url-full"><div class="panel-head"><div class="panel-title"><i class="fa-solid fa-link"></i> Source URL</div></div><div class="panel-body"><a id="rUrl" href="#" target="_blank" style="color:var(--ac);word-break:break-all;font-size:13px">—</a></div></div>
-      </div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     TOOL: JSON FORMATTER
-════════════════════════════════════════════════════ -->
-<section id="view-json-formatter" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>JSON Formatter</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-code"></i></div>
-      <div>
-        <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
-        <h1 class="t-title">JSON Formatter &amp; Validator</h1>
-        <p class="t-desc">Prettify, minify, and validate JSON instantly. Syntax highlighting, error detection with line number, and clipboard copy.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="json"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-json"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Paste JSON</h4><p>Paste raw, minified, or malformed JSON into the left panel.</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Format or Minify</h4><p>Format = prettify with 2-space indent. Minify = compact single line.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Validate &amp; Copy</h4><p>Validate checks syntax with exact error position. Copy outputs to clipboard.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="json-acts">
-      <button class="btn btn-primary" onclick="formatJson()"><i class="fa-solid fa-indent"></i> Format</button>
-      <button class="btn btn-secondary" onclick="minifyJson()"><i class="fa-solid fa-compress"></i> Minify</button>
-      <button class="btn btn-ghost" onclick="validateJson()"><i class="fa-solid fa-circle-check"></i> Validate</button>
-      <button class="btn btn-ghost" onclick="loadJsonSample()"><i class="fa-solid fa-flask"></i> Sample</button>
-      <button class="btn btn-ghost btn-sm" onclick="clearJson()" style="margin-left:auto"><i class="fa-solid fa-trash"></i></button>
-    </div>
-    <div id="jsonMsg"></div>
-    <div class="json-io">
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-          <span class="panel-title"><i class="fa-solid fa-paste"></i> Input</span>
-          <span class="json-stat">Keys: <span id="jKeyCount">—</span> · Size: <span id="jSize">—</span></span>
-        </div>
-        <textarea class="json-ta" id="jsonInput" placeholder='Paste JSON here…&#10;&#10;{"name":"Tool Hlp","version":"1.0.3"}'></textarea>
-      </div>
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-          <span class="panel-title"><i class="fa-solid fa-code"></i> Output</span>
-          <button class="btn btn-ghost btn-sm" onclick="copyJson()"><i class="fa-solid fa-copy"></i> Copy</button>
-        </div>
-        <div class="json-out" id="jsonOutput"><span style="color:var(--tx-f)">Formatted output appears here…</span></div>
-      </div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     TOOL: REGEX TESTER
-════════════════════════════════════════════════════ -->
-<section id="view-regex-tester" class="view">
-  <div class="tool-header"><div class="wrap">
-    <nav class="breadcrumb"><a data-path="/" href="#/">Home</a><i class="fa-solid fa-chevron-right"></i><a data-path="/tools" href="#/tools">Tools</a><i class="fa-solid fa-chevron-right"></i><span>Regex Tester</span></nav>
-    <div class="tool-h-row">
-      <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-      <div>
-        <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
-        <h1 class="t-title">Regex Tester</h1>
-        <p class="t-desc">Build and test regular expressions with live match highlighting, group capture display, and a quick-reference cheat sheet.</p>
-      </div>
-    </div>
-    <div class="guide-wrap">
-      <button class="guide-toggle" data-g="rx"><span><i class="fa-solid fa-book-open" style="color:var(--ac);margin-right:6px"></i>How to use</span><i class="fa-solid fa-chevron-down arr"></i></button>
-      <div class="guide-body" id="gb-rx"><div class="guide-steps">
-        <div class="guide-step"><div class="gs-n">1</div><div class="gs-text"><h4>Enter pattern</h4><p>Type a regex pattern. Add flags in the right field (g, i, m, s…)</p></div></div>
-        <div class="guide-step"><div class="gs-n">2</div><div class="gs-text"><h4>Type test string</h4><p>Matches are highlighted in real-time as you type.</p></div></div>
-        <div class="guide-step"><div class="gs-n">3</div><div class="gs-text"><h4>Check matches &amp; cheat sheet</h4><p>Match list shows each result with index and groups. Click cheat items to insert.</p></div></div>
-      </div></div>
-    </div>
-  </div></div>
-  <div class="tool-content"><div class="wrap">
-    <div class="tl tl-split" style="align-items:start">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-keyboard"></i> Pattern &amp; Test</div></div>
-          <div class="panel-body">
-            <label class="form-label">Regular Expression</label>
-            <div style="display:flex;gap:7px;margin-bottom:0">
-              <div class="rx-wrap">
-                <span class="rx-slash">/</span>
-                <input class="rx-field" id="rxPattern" placeholder="[a-z]+"/>
-                <span class="rx-slash">/</span>
-                <input class="rx-flags" id="rxFlags" value="g" placeholder="gi"/>
+              <div class="form-group">
+                <label class="form-label">Description <span class="form-hint" style="margin:0">(optional — each line = new paragraph)</span></label>
+                <textarea class="form-textarea" id="commitBody" rows="6" placeholder="- Add JWT token validation&#10;- Update middleware stack&#10;- Fix session timeout issue"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="toggle">
+                  <input type="checkbox" id="breakingChange" />
+                  <div class="tog-track"></div>
+                  <span class="tog-label">Breaking change (appends <code>BREAKING CHANGE</code>)</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Scope (optional)</label>
+                <input class="form-input" type="text" id="commitScope" placeholder="e.g. auth, api, ui" />
               </div>
             </div>
-            <div id="rxError" class="rx-err" style="display:none"></div>
-            <div class="rx-stat" style="margin-top:11px">
-              <span class="rx-stat-i">Matches: <strong id="rxMatchCount">0</strong></span>
-              <span class="rx-stat-i">Groups: <strong id="rxGroupCount">0</strong></span>
-            </div>
-            <label class="form-label">Test String</label>
-            <textarea class="test-area" id="rxTest" placeholder="Enter text to test against…"></textarea>
-            <label class="form-label" style="margin-top:13px">Highlighted Result</label>
-            <div class="result-box" id="rxHighlight"><span style="color:var(--tx-f)">Start typing to see highlights…</span></div>
           </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-list-check"></i> Matches</div></div>
-          <div class="panel-body" id="rxMatchList"><p style="color:var(--tx-f);font-size:13px">No matches yet.</p></div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-book"></i> Cheat Sheet</div></div>
-        <div class="panel-body">
-          <p style="font-size:11.5px;color:var(--tx-m);margin-bottom:9px">Click to insert into pattern field.</p>
-          <div class="cheat-grid" id="cheatSheet"></div>
+
+          <!-- Output panel -->
+          <div class="panel">
+            <div class="shell-tabs" id="shellTabs">
+              <button class="shell-tab active" data-shell="cmd"><i class="fa-brands fa-windows"></i> CMD</button>
+              <button class="shell-tab" data-shell="powershell"><i class="fa-solid fa-terminal"></i> PowerShell</button>
+              <button class="shell-tab" data-shell="bash"><i class="fa-brands fa-linux"></i> Bash / Zsh</button>
+            </div>
+            <div class="panel-body">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <label class="form-label" style="margin:0">Generated Command</label>
+                <button class="btn btn-ghost btn-sm" id="copyCmd"><i class="fa-solid fa-copy"></i> Copy</button>
+              </div>
+              <div class="cmd-output" id="cmdOutput">Fill in the title to generate your command…</div>
+
+              <hr class="div" />
+              <label class="form-label">Git Log Preview</label>
+              <div class="git-preview" id="gitPreview">
+                <div class="git-log-line">
+                  <span class="git-hash">abc1234</span>
+                  <span class="git-msg" id="previewMsg" style="color:var(--text-faint)">Your commit message will appear here</span>
+                </div>
+                <div class="git-log-line">
+                  <span style="color:var(--text-faint);font-size:11.5px" id="previewMeta"></span>
+                </div>
+              </div>
+
+              <hr class="div" />
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn btn-secondary btn-sm" onclick="clearCommit()"><i class="fa-solid fa-trash"></i> Clear</button>
+                <button class="btn btn-secondary btn-sm" onclick="copyPreview()"><i class="fa-solid fa-clipboard"></i> Copy Preview</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: GIT LOG VISUALIZER
+  ══════════════════════════════════════ -->
+  <section id="view-git-log-visualizer" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>Log Visualizer</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon teal"><i class="fa-solid fa-diagram-project"></i></div>
+          <div>
+            <span class="badge badge-git"><i class="fa-solid fa-code-branch"></i> Git</span>
+            <h1 class="t-title">Git Log Visualizer</h1>
+            <p class="t-desc">Paste your <code>git log</code> output and get a clean, color-coded commit timeline with branch info, author, and timestamps.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="gitlog">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-gitlog">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Run this in your repo</h4><p><code style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-size:12px">git log --pretty=format:"%h|%s|%an|%ar|%D" --all</code></p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Copy the output</h4><p>Select all output from your terminal and copy it.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Paste & Visualize</h4><p>Paste into the input box and click Visualize. The tool also auto-detects plain <code>git log --oneline</code> format.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Click a commit</h4><p>Click any row to see full commit details in the detail panel.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="tool-layout split" style="align-items:start">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title"><i class="fa-solid fa-paste"></i> Paste Log Output</div>
+              <button class="btn btn-secondary btn-sm" onclick="loadGitSample()"><i class="fa-solid fa-flask"></i> Load Sample</button>
+            </div>
+            <div class="panel-body">
+              <textarea class="form-textarea" id="gitLogInput" rows="14" placeholder="Paste git log output here...&#10;&#10;Supported formats:&#10;• git log --pretty=format:&quot;%h|%s|%an|%ar|%D&quot; --all&#10;• git log --oneline&#10;• git log --oneline --all"></textarea>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <button class="btn btn-primary" onclick="visualizeLog()" style="flex:1"><i class="fa-solid fa-diagram-project"></i> Visualize</button>
+                <button class="btn btn-ghost btn-sm" onclick="clearLog()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title"><i class="fa-solid fa-chart-gantt"></i> Commit Timeline</div>
+                <div class="panel-acts" id="logStatsRow"></div>
+              </div>
+              <div class="panel-body" style="padding:0">
+                <div class="log-canvas" id="logCanvas">
+                  <div class="log-empty">
+                    <i class="fa-solid fa-code-branch"></i>
+                    <p>Paste your git log and click Visualize</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel" id="commitDetail" style="display:none">
+              <div class="panel-head">
+                <div class="panel-title"><i class="fa-solid fa-circle-info"></i> Commit Detail</div>
+                <button class="btn-ghost btn btn-sm" onclick="document.getElementById('commitDetail').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+              <div class="panel-body" id="commitDetailBody"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: IMAGE EXIF REMOVER
+  ══════════════════════════════════════ -->
+  <section id="view-image-exif-remover" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>EXIF Remover</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon amber"><i class="fa-solid fa-eraser"></i></div>
+          <div>
+            <span class="badge badge-img"><i class="fa-solid fa-image"></i> Image</span>
+            <h1 class="t-title">Image EXIF / Metadata Remover</h1>
+            <p class="t-desc">Strip EXIF metadata — including GPS location, camera info, and creation dates — from images entirely in your browser. Nothing uploaded to any server.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="exif">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-exif">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Upload images</h4><p>Drag &amp; drop or click to select JPEG, PNG, or WebP images. Multiple files supported.</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Choose removal mode</h4><p>Strip ALL metadata (safest) or only date-related fields to preserve camera/lens info.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Process &amp; download</h4><p>Click Process All, then download individually or as a ZIP archive. All processing is done locally.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="tool-layout split" style="align-items:start">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-upload"></i> Upload Images</div></div>
+              <div class="panel-body">
+                <div class="drop-zone" id="exifDropZone">
+                  <i class="fa-solid fa-images dz-ico"></i>
+                  <h3>Drop images here</h3>
+                  <p>or click to browse · JPEG, PNG, WebP</p>
+                  <input type="file" id="exifFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none" />
+                </div>
+                <div class="img-file-grid" id="exifThumbGrid"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-sliders"></i> Options</div></div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label class="form-label">Removal Mode</label>
+                  <select class="form-select" id="exifMode">
+                    <option value="all">Strip ALL metadata (recommended)</option>
+                    <option value="dates">Remove date fields only</option>
+                  </select>
+                  <p class="form-hint">Strip ALL uses canvas redraw. Date-only mode keeps camera/GPS data.</p>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <button class="btn btn-primary" id="exifProcessBtn" onclick="processExif()" disabled><i class="fa-solid fa-wand-magic-sparkles"></i> Process All</button>
+                  <button class="btn btn-secondary" id="exifDownloadZip" onclick="downloadExifZip()" disabled><i class="fa-solid fa-file-zipper"></i> Download ZIP</button>
+                  <button class="btn btn-ghost btn-sm" onclick="clearExif()"><i class="fa-solid fa-trash"></i> Clear</button>
+                </div>
+                <div class="prog-bar" id="exifProgBar" style="margin-top:12px;display:none"><div class="prog-fill" id="exifProgFill" style="width:0%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-info"></i> Metadata Preview</div></div>
+            <div class="panel-body" id="exifInfoPanel">
+              <div style="text-align:center;padding:40px 20px;color:var(--text-faint)">
+                <i class="fa-solid fa-image" style="font-size:32px;display:block;margin-bottom:10px"></i>
+                <p>Upload images to see their metadata</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: IMAGE BATCH RENAMER
+  ══════════════════════════════════════ -->
+  <section id="view-image-batch-renamer" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>Batch Renamer</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon amber"><i class="fa-solid fa-file-signature"></i></div>
+          <div>
+            <span class="badge badge-img"><i class="fa-solid fa-image"></i> Image</span>
+            <h1 class="t-title">Image Batch Renamer</h1>
+            <p class="t-desc">Upload multiple images, drag to reorder, set a naming pattern, preview new filenames, and download everything as a ZIP — all in your browser.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="batch">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-batch">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Upload images</h4><p>Drag &amp; drop or select multiple images at once. Any order is fine.</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Reorder by dragging</h4><p>Drag the ⠿ handle on each row to set the final sequence.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Set naming pattern</h4><p>Configure prefix, start number, padding, separator, and whether to keep or change extension.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Download ZIP</h4><p>Click Download ZIP. All renamed files are bundled and saved to your device.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="tool-layout split" style="align-items:start">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-upload"></i> Upload Images</div></div>
+              <div class="panel-body">
+                <div class="drop-zone" id="batchDropZone">
+                  <i class="fa-solid fa-images dz-ico"></i>
+                  <h3>Drop images here</h3>
+                  <p>or click to browse · multiple selection supported</p>
+                  <input type="file" id="batchFileInput" accept="image/*" multiple style="display:none" />
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Naming Pattern</div></div>
+              <div class="panel-body">
+                <div class="pattern-builder">
+                  <div class="pattern-row">
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Prefix</label>
+                      <input class="form-input" id="rnPrefix" value="image" placeholder="image" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Separator</label>
+                      <select class="form-select" id="rnSep">
+                        <option value="_">Underscore _</option>
+                        <option value="-">Hyphen -</option>
+                        <option value=".">Dot .</option>
+                        <option value="">None</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Start #</label>
+                      <input class="form-input" id="rnStart" type="number" value="1" min="0" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Padding</label>
+                      <select class="form-select" id="rnPad">
+                        <option value="1">1 (1,2,3…)</option>
+                        <option value="2">2 (01,02…)</option>
+                        <option value="3" selected>3 (001,002…)</option>
+                        <option value="4">4 (0001…)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="pattern-row" style="margin-top:10px">
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Suffix (optional)</label>
+                      <input class="form-input" id="rnSuffix" placeholder="e.g. _hd" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                      <label class="form-label">Extension</label>
+                      <select class="form-select" id="rnExt">
+                        <option value="keep">Keep original</option>
+                        <option value="jpg">.jpg</option>
+                        <option value="png">.png</option>
+                        <option value="webp">.webp</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="pattern-preview" id="patternPreview">image_001.jpg</div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-primary" id="batchDownloadBtn" onclick="downloadBatchZip()" disabled><i class="fa-solid fa-file-zipper"></i> Download ZIP</button>
+                  <button class="btn btn-ghost btn-sm" onclick="clearBatch()"><i class="fa-solid fa-trash"></i> Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title"><i class="fa-solid fa-list-ol"></i> Files <span id="batchCount" style="color:var(--text-faint);font-weight:400"></span></div>
+              <button class="btn btn-ghost btn-sm" onclick="batchSortName()"><i class="fa-solid fa-arrow-down-a-z"></i> Sort A-Z</button>
+            </div>
+            <div class="panel-body">
+              <div class="rename-list" id="renameList">
+                <div style="text-align:center;padding:40px 20px;color:var(--text-faint)">
+                  <i class="fa-solid fa-images" style="font-size:32px;display:block;margin-bottom:10px"></i>
+                  <p>Upload images to see the rename list</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: URL METADATA EXTRACTOR
+  ══════════════════════════════════════ -->
+  <section id="view-url-metadata" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>URL Metadata</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-link"></i></div>
+          <div>
+            <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
+            <h1 class="t-title">URL Metadata Extractor</h1>
+            <p class="t-desc">Extract Open Graph metadata, thumbnails, video sources, titles, and keywords from any URL using multi-engine fallback extraction.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="url">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-url">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Enter a URL</h4><p>Paste any website URL. You can omit <code>https://</code> — it will be added automatically.</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Start Deep Scan</h4><p>The tool tries 4 different extraction engines in sequence — Microlink, Dub.co, JSONLink, and raw HTML parsing.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>View results</h4><p>See title, description, thumbnail, video source, domain, author, language, and extracted keywords.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Previous URLs</h4><p>Your recently scanned URLs are saved locally and shown as suggestions on focus.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="panel" style="margin-bottom:14px">
+          <div class="panel-body">
+            <div class="input-group">
+              <div style="position:relative;flex:1">
+                <input class="form-input" type="url" id="urlInput" placeholder="Paste a URL here (e.g. youtube.com/watch?v=…)" autocomplete="off" />
+                <button id="urlClearBtn" onclick="clearUrl()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);display:none;background:none;border:none;color:var(--text-faint);cursor:pointer;font-size:14px"><i class="fa-solid fa-xmark"></i></button>
+                <div id="urlSuggestions" style="position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);margin-top:4px;z-index:100;display:none;box-shadow:var(--shadow-m);overflow:hidden"></div>
+              </div>
+              <button class="btn btn-primary" id="urlScanBtn" onclick="startUrlScan()"><i class="fa-solid fa-radar"></i> Deep Scan</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="urlLoaderPanel" style="display:none;margin-bottom:14px">
+          <div class="panel-body">
+            <div class="spinner-wrap">
+              <div class="meta-spinner"></div>
+              <p style="font-weight:600">Scanning URL…</p>
+              <p style="font-size:12.5px;color:var(--text-muted)">Trying multiple extraction engines</p>
+            </div>
+            <div class="log-box" id="urlLogBox"></div>
+          </div>
+        </div>
+
+        <div id="urlResultsWrap" style="display:none">
+          <div class="url-results-grid">
+            <div class="panel url-full" id="urlVideoCard" style="display:none">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-film"></i> Video Source</div></div>
+              <div class="panel-body"><div class="url-media" id="urlVideoBox"></div></div>
+            </div>
+
+            <div class="panel url-full">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-image"></i> Thumbnail / Preview</div></div>
+              <div class="panel-body"><div class="url-media" id="urlImageBox"><div class="no-media-msg"><i class="fa-solid fa-image" style="font-size:24px;display:block;margin-bottom:8px"></i>No image found</div></div></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-file-lines"></i> Core Details</div></div>
+              <div class="panel-body">
+                <div class="info-row"><span class="info-key">Title</span><span class="info-val hl" id="rTitle">—</span></div>
+                <div class="info-row"><span class="info-key">Type</span><span class="info-val" id="rType">—</span></div>
+                <div class="info-row"><span class="info-key">Domain</span><span class="info-val" id="rDomain">—</span></div>
+                <div class="info-row"><span class="info-key">Provider</span><span class="info-val" id="rProvider">—</span></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-circle-info"></i> Technical Info</div></div>
+              <div class="panel-body">
+                <div class="info-row"><span class="info-key">Author</span><span class="info-val" id="rAuthor">—</span></div>
+                <div class="info-row"><span class="info-key">Language</span><span class="info-val" id="rLang">—</span></div>
+                <div class="info-row"><span class="info-key">Favicon</span><span class="info-val"><img id="rFav" style="width:20px;height:20px;border-radius:3px;display:none" /></span></div>
+                <div class="info-row"><span class="info-key">Engine</span><span class="info-val engine" id="rEngine">—</span></div>
+              </div>
+            </div>
+
+            <div class="panel url-full">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-align-left"></i> Description</div></div>
+              <div class="panel-body"><p id="rDesc" style="font-size:13.5px;line-height:1.7;color:var(--text-muted)">—</p></div>
+            </div>
+
+            <div class="panel url-full" id="urlTagsCard">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-tags"></i> Keywords</div></div>
+              <div class="panel-body"><div class="tag-cloud" id="rTags"></div></div>
+            </div>
+
+            <div class="panel url-full">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-link"></i> Source URL</div></div>
+              <div class="panel-body"><a id="rUrl" href="#" target="_blank" style="color:var(--accent);word-break:break-all;font-size:13px">—</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: JSON FORMATTER
+  ══════════════════════════════════════ -->
+  <section id="view-json-formatter" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>JSON Formatter</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-code"></i></div>
+          <div>
+            <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
+            <h1 class="t-title">JSON Formatter & Validator</h1>
+            <p class="t-desc">Prettify, minify, and validate JSON instantly. Syntax highlighting, error detection with line number, and clipboard copy.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="json">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-json">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Paste JSON</h4><p>Paste raw, minified, or malformed JSON into the left panel. Or load one of the sample presets.</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Format or Minify</h4><p>Click Format to prettify with 2-space indentation, or Minify to produce compact single-line output.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Validate</h4><p>The Validate button checks JSON syntax and reports any errors with the exact position.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Copy output</h4><p>Use the Copy button to copy the formatted output to your clipboard.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="json-actions">
+          <button class="btn btn-primary" onclick="formatJson()"><i class="fa-solid fa-indent"></i> Format</button>
+          <button class="btn btn-secondary" onclick="minifyJson()"><i class="fa-solid fa-compress"></i> Minify</button>
+          <button class="btn btn-ghost" onclick="validateJson()"><i class="fa-solid fa-circle-check"></i> Validate</button>
+          <button class="btn btn-ghost" onclick="loadJsonSample()"><i class="fa-solid fa-flask"></i> Sample</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearJson()" style="margin-left:auto"><i class="fa-solid fa-trash"></i> Clear</button>
+        </div>
+        <div id="jsonMsg"></div>
+        <div class="json-io">
+          <div>
+            <div class="panel-head" style="margin-bottom:8px;padding:0">
+              <div class="panel-title" style="font-size:11.5px"><i class="fa-solid fa-paste"></i> Input</div>
+              <div class="json-stat">Keys: <span id="jKeyCount">—</span> | Size: <span id="jSize">—</span></div>
+            </div>
+            <textarea class="json-textarea" id="jsonInput" placeholder='Paste your JSON here…&#10;&#10;{"name":"ToolHlp","version":"1.0.2"}'></textarea>
+
+          </div>
+          <div>
+            <div class="panel-head" style="margin-bottom:8px;padding:0">
+              <div class="panel-title" style="font-size:11.5px"><i class="fa-solid fa-code"></i> Output</div>
+              <button class="btn btn-ghost btn-sm" onclick="copyJson()"><i class="fa-solid fa-copy"></i> Copy</button>
+            </div>
+            <div class="json-output" id="jsonOutput"><span style="color:var(--text-faint)">Formatted output will appear here…</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TOOL: REGEX TESTER
+  ══════════════════════════════════════ -->
+  <section id="view-regex-tester" class="view">
+    <div class="tool-header">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="#home">Home</a><i class="fa-solid fa-chevron-right"></i>
+          <a href="#tools">Tools</a><i class="fa-solid fa-chevron-right"></i>
+          <span>Regex Tester</span>
+        </nav>
+        <div class="tool-h-row">
+          <div class="tool-h-icon tc-icon blue"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <div>
+            <span class="badge badge-dev"><i class="fa-solid fa-terminal"></i> Dev</span>
+            <h1 class="t-title">Regex Tester</h1>
+            <p class="t-desc">Build and test regular expressions with live match highlighting, group capture display, and a quick-reference cheat sheet.</p>
+          </div>
+        </div>
+        <div class="guide-wrap">
+          <button class="guide-toggle" data-guide="rx">
+            <span><i class="fa-solid fa-book-open" style="margin-right:7px;color:var(--accent)"></i> How to use this tool</span>
+            <i class="fa-solid fa-chevron-down arrow"></i>
+          </button>
+          <div class="guide-body" id="guide-rx">
+            <div class="guide-steps">
+              <div class="guide-step"><div class="gs-num">1</div><div class="gs-text"><h4>Enter your pattern</h4><p>Type a regex pattern (without slashes). Use the flags field for modifiers: g, i, m, s…</p></div></div>
+              <div class="guide-step"><div class="gs-num">2</div><div class="gs-text"><h4>Type test string</h4><p>Enter text in the test area. Matches are highlighted in real-time as you type.</p></div></div>
+              <div class="guide-step"><div class="gs-num">3</div><div class="gs-text"><h4>Check matches</h4><p>The match list shows each match with index, value, and capture groups.</p></div></div>
+              <div class="guide-step"><div class="gs-num">4</div><div class="gs-text"><h4>Use cheat sheet</h4><p>Click any cheat sheet item to insert that pattern into the regex field.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-content">
+      <div class="container">
+        <div class="tool-layout split" style="align-items:start">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-input-text"></i> Pattern & Test</div></div>
+              <div class="panel-body">
+                <label class="form-label">Regular Expression</label>
+                <div class="regex-input-row">
+                  <div class="regex-wrap">
+                    <span class="regex-slash">/</span>
+                    <input class="regex-field" id="rxPattern" placeholder="[a-z]+" />
+                    <span class="regex-slash">/</span>
+                    <input class="regex-flags" id="rxFlags" value="g" placeholder="gi" title="Flags: g i m s u" />
+                  </div>
+                </div>
+                <div id="rxError" class="regex-err" style="display:none"></div>
+
+                <div class="rx-stat" id="rxStat" style="margin-top:12px">
+                  <span class="rx-stat-item">Matches: <strong id="rxMatchCount">0</strong></span>
+                  <span class="rx-stat-item">Groups: <strong id="rxGroupCount">0</strong></span>
+                </div>
+
+                <label class="form-label">Test String</label>
+                <textarea class="test-area" id="rxTest" placeholder="Enter text to test your regex against…"></textarea>
+
+                <label class="form-label" style="margin-top:14px">Highlighted Result</label>
+                <div class="test-result-box" id="rxHighlight"><span style="color:var(--text-faint)">Start typing to see highlights…</span></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-list-check"></i> Matches</div></div>
+              <div class="panel-body" id="rxMatchList"><p style="color:var(--text-faint);font-size:13px">No matches yet.</p></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-book"></i> Cheat Sheet</div></div>
+            <div class="panel-body">
+              <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Click any item to insert into pattern field.</p>
+              <div class="cheat-row" id="cheatSheet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── DOCS ────────── -->
+
+  <!-- ══════════════════════════════════════
+       DOCS PAGE
+  ══════════════════════════════════════ -->
+  <section id="view-docs" class="view">
+    <div class="tools-page-header">
+      <div class="container">
+        <div class="sec-eyebrow">Documentation</div>
+        <h1 class="sec-h2">ToolHlp Documentation</h1>
+        <p class="sec-lead">Everything you need to know to get started and contribute.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="docs-layout">
+
+        <!-- Sidebar nav -->
+        <aside class="docs-nav">
+          <div class="docs-nav-title">On this page</div>
+          <a href="#" class="active" data-doc="doc-start"><i class="fa-solid fa-rocket"></i> Getting Started</a>
+          <a href="#" data-doc="doc-tools"><i class="fa-solid fa-grid-2"></i> All Tools</a>
+          <a href="#" data-doc="doc-git"><i class="fa-solid fa-code-branch"></i> Git Tools</a>
+          <a href="#" data-doc="doc-image"><i class="fa-solid fa-image"></i> Image Tools</a>
+          <a href="#" data-doc="doc-dev"><i class="fa-solid fa-terminal"></i> Dev Tools</a>
+          <a href="#" data-doc="doc-kbd"><i class="fa-solid fa-keyboard"></i> Keyboard Tips</a>
+          <a href="#" data-doc="doc-privacy"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
+          <a href="#" data-doc="doc-changelog"><i class="fa-solid fa-clock-rotate-left"></i> Changelog</a>
+        </aside>
+
+        <!-- Main docs content -->
+        <div class="docs-content">
+
+          <!-- Getting Started -->
+          <div class="docs-section">
+            <h2 id="doc-start"><i class="fa-solid fa-rocket"></i> Getting Started</h2>
+            <p>ToolHlp is a 100% browser-based developer toolkit. There's nothing to install, no account to create, and no data is ever sent to a server. Simply open the site and start using any tool instantly.</p>
+            <div class="docs-note">
+              <i class="fa-solid fa-circle-info"></i>
+              <p>All tools run entirely in your browser using vanilla HTML, CSS, and JavaScript. The only exception is the <strong>URL Metadata</strong> tool which makes requests to external metadata APIs on your behalf.</p>
+            </div>
+            <h3>Navigation</h3>
+            <p>Use the <strong>navbar</strong> at the top to jump between tools. On desktop, hover over <em>Tools</em> to open the mega-menu with all tools organized by category. On mobile, tap the hamburger icon to open the sidebar.</p>
+            <p>Every page uses hash-based routing — you can bookmark or share any tool page directly (e.g. <code>toolhlp.app/#commit-generator</code>), and the browser back/forward buttons work as expected.</p>
+            <h3>Theme</h3>
+            <p>Click the <i class="fa-solid fa-moon text-accent"></i> icon in the top-right to toggle between dark and light mode. Your preference is saved to <code>localStorage</code> and remembered across visits.</p>
+          </div>
+
+          <!-- All Tools -->
+          <div class="docs-section">
+            <h2 id="doc-tools"><i class="fa-solid fa-grid-2"></i> All Tools</h2>
+            <div class="docs-tool-grid">
+              <div class="docs-tool-card" onclick="navigate('commit-generator')">
+                <div class="tc-icon teal"><i class="fa-solid fa-code-commit"></i></div>
+                <div><div class="dtc-title">Commit Generator</div><div class="dtc-desc">Build properly formatted multi-line git commit commands for CMD, PowerShell, and Bash.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('git-log-visualizer')">
+                <div class="tc-icon teal"><i class="fa-solid fa-diagram-project"></i></div>
+                <div><div class="dtc-title">Git Log Visualizer</div><div class="dtc-desc">Paste <code>git log</code> output to get a color-coded commit timeline with branch info.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('image-exif-remover')">
+                <div class="tc-icon amber"><i class="fa-solid fa-eraser"></i></div>
+                <div><div class="dtc-title">EXIF Remover</div><div class="dtc-desc">Strip GPS, dates, and camera metadata from images in-browser. Nothing leaves your device.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('image-batch-renamer')">
+                <div class="tc-icon amber"><i class="fa-solid fa-file-signature"></i></div>
+                <div><div class="dtc-title">Batch Renamer</div><div class="dtc-desc">Upload files, drag to reorder, apply naming patterns, and download as a ZIP archive.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('url-metadata')">
+                <div class="tc-icon blue"><i class="fa-solid fa-link"></i></div>
+                <div><div class="dtc-title">URL Metadata</div><div class="dtc-desc">Extract Open Graph tags, title, description, thumbnail, and keywords from any URL.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('json-formatter')">
+                <div class="tc-icon blue"><i class="fa-solid fa-code"></i></div>
+                <div><div class="dtc-title">JSON Formatter</div><div class="dtc-desc">Prettify, minify, and validate JSON with full syntax highlighting and error positions.</div></div>
+              </div>
+              <div class="docs-tool-card" onclick="navigate('regex-tester')">
+                <div class="tc-icon blue"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <div><div class="dtc-title">Regex Tester</div><div class="dtc-desc">Live regex match highlighting, capture groups panel, and a click-to-insert cheat sheet.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Git Tools detail -->
+          <div class="docs-section">
+            <h2 id="doc-git"><i class="fa-solid fa-code-branch"></i> Git Tools</h2>
+            <h3>Commit Generator</h3>
+            <p>Generates correctly escaped, multi-line <code>git commit</code> commands. Supports <strong>CMD</strong> (uses <code>^</code> continuation), <strong>PowerShell</strong> (uses backtick), and <strong>Bash/Zsh</strong> (uses <code>\</code>).</p>
+            <p>Follows the <a href="https://www.conventionalcommits.org" target="_blank" rel="noopener">Conventional Commits</a> spec. Select a type, enter a title, optionally add a scope and body lines, then toggle Breaking Change if needed.</p>
+            <span class="docs-code-label">Example generated CMD command</span>
+            <div class="docs-code">git add . && ^
+git commit -m "feat(auth): add JWT token refresh" ^
+         -m "- Implement sliding window token expiry" ^
+         -m "- Add refresh endpoint /api/auth/refresh" ^
+         -m "- Update middleware to validate refresh tokens"</div>
+            <h3>Git Log Visualizer</h3>
+            <p>Paste the output of either of these commands into the text area and click <strong>Visualize</strong>:</p>
+            <div class="docs-code">git log --pretty=format:"%h|%s|%an|%ar|%D" --all
+# or simply:
+git log --oneline --all</div>
+            <p>Each commit row shows the hash, message, author, relative time, and any branch/tag references. Click a row to expand the full detail panel.</p>
+          </div>
+
+          <!-- Image Tools detail -->
+          <div class="docs-section">
+            <h2 id="doc-image"><i class="fa-solid fa-image"></i> Image Tools</h2>
+            <h3>EXIF Remover</h3>
+            <p>Uses the browser's <strong>Canvas API</strong> to redraw each image, which inherently strips all metadata. Supports JPEG, PNG, and WebP. The "Strip ALL" mode redraws at ~95% quality for JPEG; PNG output is lossless.</p>
+            <div class="docs-note">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <p>The "Date fields only" removal mode is a best-effort metadata edit — it cannot strip GPS data at the byte level without a WASM library. For maximum privacy, always use "Strip ALL" mode.</p>
+            </div>
+            <h3>Batch Renamer</h3>
+            <p>Upload files, drag to set the desired order, then configure the naming pattern:</p>
+            <ul>
+              <li><strong>Prefix</strong> — text before the number (e.g. <code>photo_</code>)</li>
+              <li><strong>Separator</strong> — character between prefix and number</li>
+              <li><strong>Padding</strong> — zero-pad digits (e.g. <code>001</code> vs <code>1</code>)</li>
+              <li><strong>Suffix / Extension</strong> — appended after the number</li>
+            </ul>
+            <p>Click <em>Apply Pattern</em> to preview new names, then <em>Download ZIP</em> to get all renamed files in a single archive.</p>
+          </div>
+
+          <!-- Dev Tools detail -->
+          <div class="docs-section">
+            <h2 id="doc-dev"><i class="fa-solid fa-terminal"></i> Dev Tools</h2>
+            <h3>URL Metadata</h3>
+            <p>Uses a 4-engine fallback chain to extract Open Graph metadata from any URL: <strong>Microlink → Dub.co → JSONLink → AllOrigins</strong> (raw HTML parse). History of the last 8 fetched URLs is saved in <code>localStorage</code>.</p>
+            <h3>JSON Formatter</h3>
+            <p>Paste raw JSON and choose <em>Format</em> (pretty print with 2-space indent) or <em>Minify</em>. Validation errors show the exact line and column. Syntax highlighting colors: <span style="color:#86efac">strings</span>, <span style="color:#60a5fa">numbers</span>, <span style="color:#f472b6">booleans/null</span>.</p>
+            <h3>Regex Tester</h3>
+            <p>Type a pattern (without the leading/trailing <code>/</code>) and select flags. All matches are highlighted live in the test area. Capture groups are color-coded and listed in the results panel. Click any item in the cheat sheet to append it to your pattern.</p>
+          </div>
+
+          <!-- Keyboard tips -->
+          <div class="docs-section">
+            <h2 id="doc-kbd"><i class="fa-solid fa-keyboard"></i> Keyboard Tips</h2>
+            <div class="docs-card">
+              <h4>Universal shortcuts</h4>
+              <p>All standard browser clipboard shortcuts work everywhere: <code>Ctrl+A</code> to select all in a textarea, <code>Ctrl+C</code> to copy, <code>Ctrl+V</code> to paste. Tool-specific copy buttons use the Clipboard API and show a toast notification on success.</p>
+            </div>
+            <div class="docs-card" style="margin-top:10px">
+              <h4>File drop zones</h4>
+              <p>The EXIF Remover and Batch Renamer both support drag-and-drop from your file explorer directly onto the drop zone — no need to click the browse button.</p>
+            </div>
+          </div>
+
+          <!-- Privacy -->
+          <div class="docs-section">
+            <h2 id="doc-privacy"><i class="fa-solid fa-shield-halved"></i> Privacy</h2>
+            <p>ToolHlp is designed around a <strong>privacy-first</strong> philosophy:</p>
+            <ul>
+              <li>No analytics, no tracking scripts, no cookies</li>
+              <li>No user accounts — your identity is entirely anonymous</li>
+              <li>Image processing happens entirely via the Canvas API — pixels never leave the browser tab</li>
+              <li>JSON, regex, and git log data stay in memory only; nothing is stored server-side</li>
+              <li>URL history is stored only in your own <code>localStorage</code> — it never leaves your device</li>
+            </ul>
+            <div class="docs-note">
+              <i class="fa-solid fa-globe"></i>
+              <p>The <strong>URL Metadata</strong> tool sends the URL you provide to third-party metadata APIs (Microlink, Dub.co, etc.) to extract Open Graph data. This is the only tool that makes external network requests.</p>
+            </div>
+          </div>
+
+          <!-- Changelog -->
+          <div class="docs-section">
+            <h2 id="doc-changelog"><i class="fa-solid fa-clock-rotate-left"></i> Changelog</h2>
+            <div class="version-timeline">
+              <div class="ver-entry">
+                <div class="ver-dot current">1.0.2</div>
+                <div class="ver-body">
+                  <h4>v1.0.4 — Full Redesign &amp; Docs</h4>
+                  <div class="ver-date">May 2026 (20 May)</div>
+                  <ul>
+                    <li>Renamed to <strong>ToolHlp</strong>, new SVG logo</li>
+                    <li>Emerald Green (#10b981) design system, deep slate dark mode</li>
+                    <li>Centralized config in <code>assets/js/config.js</code></li>
+                    <li>Redesigned navbar with glassmorphism &amp; smooth mega-menu</li>
+                    <li>SPA router with fade transitions</li>
+                    <li>New comprehensive Documentation page</li>
+                    <li>Fixed dark mode text contrast on all tool pages</li>
+                    <li>Responsive improvements across all breakpoints</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="ver-entry">
+                <div class="ver-dot">1.0.0</div>
+                <div class="ver-body">
+                  <h4>v1.0.0 — Initial Release</h4>
+                  <div class="ver-date">Jan 2025</div>
+                  <ul>
+                    <li>7 developer tools: Commit Generator, Log Visualizer, EXIF Remover, Batch Renamer, URL Metadata, JSON Formatter, Regex Tester</li>
+                    <li>Hash-based SPA router with zero reloads</li>
+                    <li>Dark/light theme toggle</li>
+                    <li>Responsive mega-menu navbar + mobile sidebar</li>
+                    <li>GitHub Pages auto-deploy via GitHub Actions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /docs-content -->
+      </div><!-- /docs-layout -->
+    </div><!-- /container -->
+  </section>
 
 </main>
 
-<!-- ═══════════ FOOTER ═══════════ -->
+<!-- FOOTER -->
 <footer id="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a class="nav-brand" data-path="/" href="#/">
-        <div class="brand-logo"><img src="assets/images/logo.svg" alt="Tool Hlp"/></div>
-        <span class="brand-name">Tool Hlp</span>
-      </a>
-      <p class="site-tagline">Developer tools, all in one place.</p>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#home" style="margin-bottom:12px;display:inline-flex">
+          <div class="logo-sq" style="width:30px;height:30px"><img src="logo.svg" alt="" /></div>
+          <span class="logo-name site-name" style="font-size:16px">Tool<span>Hlp</span></span>
+        </a>
+        <p>A curated collection of browser-based developer utilities. Fast, private, and zero-dependency.</p>
+        <div class="footer-social">
+          <a href="https://github.com/muhtasim-rahman/toolhlp" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://mdturzo.web.app" target="_blank" rel="noopener" title="Portfolio"><i class="fa-solid fa-globe"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Git Tools</h5>
+        <a href="#commit-generator"   data-route="commit-generator">Commit Generator</a>
+        <a href="#git-log-visualizer" data-route="git-log-visualizer">Log Visualizer</a>
+      </div>
+      <div class="footer-col">
+        <h5>Image Tools</h5>
+        <a href="#image-exif-remover"  data-route="image-exif-remover">EXIF Remover</a>
+        <a href="#image-batch-renamer" data-route="image-batch-renamer">Batch Renamer</a>
+      </div>
+      <div class="footer-col">
+        <h5>Dev Tools</h5>
+        <a href="#url-metadata"   data-route="url-metadata">URL Metadata</a>
+        <a href="#json-formatter" data-route="json-formatter">JSON Formatter</a>
+        <a href="#regex-tester"   data-route="regex-tester">Regex Tester</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h5>Git Tools</h5>
-      <a href="#/tools/commit-generator"   data-path="/tools/commit-generator"><i class="fa-solid fa-code-commit"></i> Commit Generator</a>
-      <a href="#/tools/git-log-visualizer" data-path="/tools/git-log-visualizer"><i class="fa-solid fa-diagram-project"></i> Log Visualizer</a>
-    </div>
-    <div class="footer-col">
-      <h5>Image Tools</h5>
-      <a href="#/tools/image-exif-remover"  data-path="/tools/image-exif-remover"><i class="fa-solid fa-eraser"></i> EXIF Remover</a>
-      <a href="#/tools/image-batch-renamer" data-path="/tools/image-batch-renamer"><i class="fa-solid fa-file-signature"></i> Batch Renamer</a>
-    </div>
-    <div class="footer-col">
-      <h5>Dev Tools</h5>
-      <a href="#/tools/url-metadata"   data-path="/tools/url-metadata"><i class="fa-solid fa-link"></i> URL Metadata</a>
-      <a href="#/tools/json-formatter" data-path="/tools/json-formatter"><i class="fa-solid fa-code"></i> JSON Formatter</a>
-      <a href="#/tools/regex-tester"   data-path="/tools/regex-tester"><i class="fa-solid fa-magnifying-glass-plus"></i> Regex Tester</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© <span class="site-year">2025</span> Tool Hlp · Built by <a class="link-portfolio" href="#">Muhtasim Rahman</a></p>
-    <div style="display:flex;align-items:center;gap:10px">
-      <span class="ver-pill"><i class="fa-solid fa-tag"></i> <span class="site-version">v1.0.2</span></span>
-      <a class="link-repo" href="#" target="_blank" style="color:var(--tx-f);font-size:12px"><i class="fa-brands fa-github"></i> GitHub</a>
+    <div class="footer-bottom">
+      <p>© 2026 <strong>ToolHlp</strong> · Built with <i class="fa-solid fa-heart" style="color:var(--danger)"></i> by <a href="https://mdturzo.web.app" target="_blank" rel="noopener">Muhtasim Rahman</a></p>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="ver-badge version-label"><i class="fa-solid fa-tag"></i> v1.0.4</span>
+        <a href="https://github.com/muhtasim-rahman/toolhlp" target="_blank" rel="noopener" style="color:var(--text-faint);font-size:13px"><i class="fa-brands fa-github"></i> Source</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><i class="fa-solid fa-circle-info"></i><span id="toastMsg"></span></div>
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Done!</span></div>
 
-<!-- ═══════════ SCRIPTS ═══════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/tools/commit-generator.js"></script>
 <script src="assets/js/tools/git-log-visualizer.js"></script>

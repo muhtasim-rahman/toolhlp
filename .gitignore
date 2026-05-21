@@ -7,24 +7,22 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
-*~
+*.swo
 
-# Build / dist
-*.zip
-*.tar.gz
-_deploy/
-dist/
-build/
-node_modules/
+# Sensitive / AI context (private, not for GitHub)
+.files-for-ai/
+.Backup/
+.Backups/
+
+# Env / secrets
+.env
+.env.local
+*.secret
 
 # Logs
 *.log
+npm-debug.log*
 
-# Env
-.env
-.env.*
-
-# AI & Backup folders — committed to repo but NOT deployed via GitHub Actions
-# (Excluded in .github/workflows/deploy.yml via the _deploy copy step)
-# These are intentionally kept in the repo for version history and AI continuity.
-# DO NOT add .Backups/ or .files-for-ai/ here — they must stay in version control.
+# Build artifacts (none used currently — vanilla project)
+node_modules/
+dist/
